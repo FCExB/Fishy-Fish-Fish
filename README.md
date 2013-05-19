@@ -1,4 +1,4 @@
-Fishy-Fish-Fish
+Fishy Fish Fish
 ===============
 
 Fishing game jam repo
