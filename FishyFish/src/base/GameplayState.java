@@ -23,7 +23,7 @@ public class GameplayState extends BasicGameState {
 
 	private Camera camera = new Camera(500, 0);
 	private World world;
-	private final List<Entity> entities = new ArrayList<Entity>();
+	private Fish fish;
 
 	public GameplayState(int stateID) {
 		this.stateID = stateID;
@@ -34,16 +34,14 @@ public class GameplayState extends BasicGameState {
 			throws SlickException {
 		new Assets();
 		world = new World();
-		entities.add(new Fish(new Vector3f(400, 0, 50), new Vector3f(), world));
+		fish = new Fish(new Vector3f(400, 0, 0), new Vector3f(), world);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 
-		for (Entity e : entities) {
-			e.update(delta, container);
-		}
+		fish.update(delta, container);
 		
 		camera.update(container, delta);
 		world.update(delta);
@@ -62,11 +60,7 @@ public class GameplayState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 
-		for (Entity e : entities) {
-			e.render(camera, g);
-		}
-		
-		world.render(camera, g);
+		world.render(camera, g, fish);
 
 		renderUI(container, game, g);
 	}

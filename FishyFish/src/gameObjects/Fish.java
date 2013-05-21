@@ -27,7 +27,7 @@ public class Fish extends MovingEntity {
 
 	@Override
 	protected void act(int deltaT, GameContainer gc) {
-		
+
 	}
 
 	@Override
@@ -57,19 +57,23 @@ public class Fish extends MovingEntity {
 				if (input.isKeyDown(Input.KEY_D)) {
 					Vector3f.add(result, new Vector3f(1, 0, 0), result);
 				}
+
 			} else {
 				return new Vector3f(0, -World.GRAVITY * deltaT, 0);
 			}
-		} else {
-			return (Vector3f) getVelocity().normalise().negate()
-					.scale(waterResistance * deltaT);
 		}
 
 		if (result.lengthSquared() != 0) {
 			return (Vector3f) result.normalise().scale(speed * deltaT);
-		}
+		} else {
+			Vector3f velocity = getVelocity();
 
-		return result;
+			if (velocity.lengthSquared() != 0) {
+
+				return (Vector3f) velocity.normalise().negate()
+						.scale(waterResistance * deltaT);
+			} else return result;
+		}
 	}
 
 }
