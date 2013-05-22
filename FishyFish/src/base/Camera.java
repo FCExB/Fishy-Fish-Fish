@@ -10,7 +10,7 @@ public class Camera {
 	private int x;
 	private int y;
 
-	private float angle = 80;
+	private float angle = 11.8f;
 
 	public Camera(int x, int y) {
 		this.x = x;

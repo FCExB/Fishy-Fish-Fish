@@ -16,33 +16,35 @@ public abstract class Entity implements Comparable<Entity> {
 	protected Vector3f position;
 
 	private final SpriteSheet animation;
-	
+
 	private int animationFrame;
 	protected int spriteSheetRow;
 	private int time;
 	protected boolean animating = false;
 
-	protected final int width;
-	protected final int height;
+	protected final int originalWidth;
+	protected final int originalHeight;
 	protected final int depth;
+	protected float scale;
 
 	private final boolean solid;
 
 	protected final World world;
 
-	public Entity(SpriteSheet ss, boolean solid, int depth,float scale, Vector3f position,
-			World world) {
+	public Entity(SpriteSheet ss, boolean solid, int depth, float scale,
+			Vector3f position, World world) {
 		this.position = position;
 		this.world = world;
 		animation = ss;
-		width = (int)(ss.getSpriteWidth()*scale);
-		height = (int)(ss.getSpriteHeight()*scale);
+		originalWidth = ss.getSpriteWidth();
+		originalHeight = ss.getSpriteHeight();
+		this.scale = scale;
 		this.depth = depth;
 		this.solid = solid;
 	}
 
-	public Entity(Image image, boolean solid, int depth, float scale, Vector3f position,
-			World world) {
+	public Entity(Image image, boolean solid, int depth, float scale,
+			Vector3f position, World world) {
 		this(new SpriteSheet(image, image.getWidth(), image.getHeight()),
 				solid, depth, scale, position, world);
 	}
@@ -52,11 +54,11 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public int getHeight() {
-		return height;
+		return originalHeight;
 	}
 
 	public int getWidth() {
-		return width;
+		return originalWidth;
 	}
 
 	public int getDepth() {
@@ -64,11 +66,11 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float greatestX() {
-		return position.x + width / 2;
+		return position.x + originalWidth / 2;
 	}
 
 	public float greatestY() {
-		return position.y + height;
+		return position.y + originalHeight;
 	}
 
 	public float greatestZ() {
@@ -76,7 +78,7 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float smallestX() {
-		return position.x - width / 2;
+		return position.x - originalWidth / 2;
 	}
 
 	public float smallestY() {
@@ -96,27 +98,26 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public void render(Camera camera, Graphics g) {
-		//if (camera.inRenderView(position)) {
+		// if (camera.inRenderView(position)) {
 
-			float zScaler = camera.zScaler();
-			float otherScaler = camera.otherScaler();
+		float zScaler = camera.zScaler();
+		float otherScaler = camera.otherScaler();
 
-			int x = Math.round(position.getX() - camera.getX()) + 500 - width
-					/ 2;
-			int y = Math.round((position.getZ() - camera.getY()) * zScaler
-					+ 300 - height * otherScaler - position.y * otherScaler);
-			float xScale = 1;
-			float yScale = otherScaler;
+		int x = (int) (Math.round(position.getX() - camera.getX()) + 500 - (originalWidth * scale) / 2);
+		int y = Math.round((position.getZ() - camera.getY()) * zScaler + 300
+				- originalHeight * scale * otherScaler - position.y
+				* otherScaler);
+		float xScale = 1;
+		float yScale = otherScaler;
 
-			
-			Image image = animation.getSubImage(animationFrame, spriteSheetRow);
-			
-			Color filter = world.filterAtLocation(position);
+		Image image = animation.getSubImage(animationFrame, spriteSheetRow);
 
-				image.draw(x, y, width * xScale, height * yScale);
 
-			//renderExtras(camera, g, filter);
-		//}
+		image.draw(x, y, originalWidth * scale * xScale, originalHeight * scale
+				* yScale);
+
+		// renderExtras(camera, g, filter);
+		// }
 	}
 
 	/**
@@ -179,5 +180,4 @@ public abstract class Entity implements Comparable<Entity> {
 	public int compareTo(Entity that) {
 		return new Float(position.z).compareTo(that.position.z);
 	}
-
 }

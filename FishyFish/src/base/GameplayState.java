@@ -23,7 +23,6 @@ public class GameplayState extends BasicGameState {
 
 	private Camera camera = new Camera(500, 0);
 	private World world;
-	private Fish fish;
 
 	public GameplayState(int stateID) {
 		this.stateID = stateID;
@@ -34,17 +33,14 @@ public class GameplayState extends BasicGameState {
 			throws SlickException {
 		new Assets();
 		world = new World();
-		fish = new Fish(new Vector3f(400, 0, 0), new Vector3f(), world);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-
-		fish.update(delta, container);
 		
-		camera.update(container, delta);
-		world.update(delta);
+		//camera.update(container, delta);
+		world.update(container, delta);
 
 		actOnInput(container, game, delta);
 	}
@@ -62,7 +58,7 @@ public class GameplayState extends BasicGameState {
 		
 		g.setAntiAlias(true);
 
-		world.render(camera, g, fish);
+		world.render(camera, g);
 
 		renderUI(container, game, g);
 	}

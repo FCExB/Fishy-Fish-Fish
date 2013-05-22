@@ -25,13 +25,40 @@ public class Fish extends MovingEntity {
 
 	}
 
+	private Vector3f lastPos = new Vector3f();
+
 	@Override
 	protected void act(int deltaT, GameContainer gc) {
+		boolean inWaterLast = world.inWater(lastPos);
+		boolean inWaterNow = world.inWater(position);
 
+		if (!inWaterLast && inWaterNow) {
+			world.enterWater(position, scale);
+		}
+
+		if (!inWaterNow && inWaterLast) {
+			world.exitWater(position, scale);
+		}
+
+		lastPos = position;
+
+		scale = (800 + position.z) / 800;
 	}
 
 	@Override
 	protected Vector3f acceleration(int deltaT, GameContainer gc) {
+
+		if (position.z < -400)
+			position.z = -400;
+
+		if (position.z > -7)
+			position.z = -7;
+
+		if (position.x < 1)
+			position.x = 1;
+
+		if (position.x > 790)
+			position.x = 790;
 
 		float waterResistance = 0.01f;
 		float maxSpeed = 5f;
@@ -58,21 +85,30 @@ public class Fish extends MovingEntity {
 					Vector3f.add(result, new Vector3f(1, 0, 0), result);
 				}
 
+				if (input.isKeyDown(Input.KEY_E)) {
+					Vector3f.add(result, new Vector3f(0, 0, -1), result);
+				}
+
+				if (input.isKeyDown(Input.KEY_Q)) {
+					Vector3f.add(result, new Vector3f(0, 0, 1), result);
+				}
+
 			} else {
 				return new Vector3f(0, -World.GRAVITY * deltaT, 0);
 			}
 		}
 
 		if (result.lengthSquared() != 0) {
-			return (Vector3f) result.normalise().scale(speed * deltaT);
+			return (Vector3f) result.normalise().scale(speed * scale * deltaT);
 		} else {
 			Vector3f velocity = getVelocity();
 
 			if (velocity.lengthSquared() != 0) {
 
 				return (Vector3f) velocity.normalise().negate()
-						.scale(waterResistance * deltaT);
-			} else return result;
+						.scale(waterResistance * scale *deltaT);
+			} else
+				return result;
 		}
 	}
 
