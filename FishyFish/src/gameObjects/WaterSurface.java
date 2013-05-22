@@ -48,6 +48,7 @@ public class WaterSurface {
 	private void updateTriangles() {
 
 		timeSinceUpdate = 0;
+		polys.clear();
 
 		for (int z = 0; z < numDeep; z++) {
 
@@ -116,14 +117,14 @@ public class WaterSurface {
 
 		if (timeSinceUpdate >= UPDATE_FREQUENCY) {
 
-			int z = rand.nextInt(numDeep);
-			int zEnd = rand.nextInt(numDeep);
+//			int z = 0; //rand.nextInt(numDeep);
+//			int zEnd = numDeep; // rand.nextInt(numDeep);
+//			
+//			int x = 0; // rand.nextInt(numWide);
+//			int xEnd = numWide; // rand.nextInt(numWide);
 			
-			int x = rand.nextInt(numWide);
-			int xEnd = rand.nextInt(numWide);
-			
-			for (;z < zEnd; z++) {
-				for (; x < xEnd; x++) {
+			for (int z = 0 ;z < numDeep; z++) {
+				for (int x =0; x < numWide; x++) {
 					points[z][x].y += (Math.random() - 0.5) * 5;
 				}
 			}
@@ -134,15 +135,16 @@ public class WaterSurface {
 
 	private Color calculateColor(List<Vector3f> triangle) {
 
-		float height = Float.MIN_VALUE;
-		for (Vector3f vec : triangle) {
-			height = Math.max(vec.y, height);
-		}
-
-		height += 0.2;
-		height /= 5;
-
-		return new Color(0f, 0f, height, 0.6f);
+		return new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+		
+//		float height = Float.MIN_VALUE;
+//		for (Vector3f vec : triangle) {
+//			height = Math.max(vec.y, height);
+//		}
+//
+//		height /= 5;
+//
+//		return new Color(0f, 0f, height, 0.7f);
 	}
 
 	public void render(Camera camera, Graphics g) {

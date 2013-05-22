@@ -59,6 +59,8 @@ public class GameplayState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
+		
+		g.setAntiAlias(true);
 
 		world.render(camera, g, fish);
 
