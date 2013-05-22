@@ -43,6 +43,17 @@ public class Fish extends MovingEntity {
 		lastPos = position;
 
 		scale = (800 + position.z) / 800;
+		
+		Vector3f velocity = getVelocity();
+		
+		if(velocity.x < 0){
+			horizontalFlip = true;
+		} else horizontalFlip = false;
+		
+		float angle = (float) Math.toDegrees(Math.atan(-velocity.y/velocity.x));
+		if(!Float.isNaN(angle)){
+			rotationAngle = angle;
+		} 
 	}
 
 	@Override
@@ -57,8 +68,8 @@ public class Fish extends MovingEntity {
 		if (position.x < 1)
 			position.x = 1;
 
-		if (position.x > 790)
-			position.x = 790;
+		if (position.x > 770)
+			position.x = 770;
 
 		float waterResistance = 0.01f;
 		float maxSpeed = 5f;
@@ -99,12 +110,15 @@ public class Fish extends MovingEntity {
 		}
 
 		if (result.lengthSquared() != 0) {
-			return (Vector3f) result.normalise().scale(speed * scale * deltaT);
+			
+			result.normalise().scale(speed * scale * deltaT);
+			
+			return result;
 		} else {
 			Vector3f velocity = getVelocity();
 
 			if (velocity.lengthSquared() != 0) {
-
+				
 				return (Vector3f) velocity.normalise().negate()
 						.scale(waterResistance * scale *deltaT);
 			} else

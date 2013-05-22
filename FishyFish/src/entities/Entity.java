@@ -26,6 +26,9 @@ public abstract class Entity implements Comparable<Entity> {
 	protected final int originalHeight;
 	protected final int depth;
 	protected float scale;
+	
+	protected float rotationAngle = 0;
+	protected boolean horizontalFlip = false;
 
 	private final boolean solid;
 
@@ -111,8 +114,11 @@ public abstract class Entity implements Comparable<Entity> {
 		float yScale = otherScaler;
 
 		Image image = animation.getSubImage(animationFrame, spriteSheetRow);
-
-
+		
+		image = image.getFlippedCopy(horizontalFlip, false);
+		
+		image.setRotation(rotationAngle);
+		
 		image.draw(x, y, originalWidth * scale * xScale, originalHeight * scale
 				* yScale);
 
