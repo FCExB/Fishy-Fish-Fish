@@ -22,7 +22,6 @@ public class Fish extends MovingEntity {
 	@Override
 	public void hitBy(Entity entity) {
 		// TODO Auto-generated method stub
-
 	}
 
 	private Vector3f lastPos = new Vector3f();
@@ -59,24 +58,12 @@ public class Fish extends MovingEntity {
 	@Override
 	protected Vector3f acceleration(int deltaT, GameContainer gc) {
 
-		if (position.z < -400)
-			position.z = -400;
-
-		if (position.z > -7)
-			position.z = -7;
-
-		if (position.x < 1)
-			position.x = 1;
-
-		if (position.x > 770)
-			position.x = 770;
-
 		float waterResistance = 0.01f;
-		float maxSpeed = 5f;
+		float maxSpeed = 10f;
 
 		Vector3f result = new Vector3f();
 
-		if (getVelocity().length() < maxSpeed) {
+		if (getVelocity().length() < maxSpeed*scale) {
 			if (world.inWater(position)) {
 				Input input = gc.getInput();
 
@@ -118,7 +105,6 @@ public class Fish extends MovingEntity {
 			Vector3f velocity = getVelocity();
 
 			if (velocity.lengthSquared() != 0) {
-				
 				return (Vector3f) velocity.normalise().negate()
 						.scale(waterResistance * scale *deltaT);
 			} else

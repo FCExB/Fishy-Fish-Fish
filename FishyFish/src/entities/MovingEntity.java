@@ -47,7 +47,7 @@ public abstract class MovingEntity extends Entity {
 
 		position = Vector3f.add(position, velocity, null);
 
-		if (Vector3f.sub(position, oldPosition, null).length() < 0.01) {
+		if (Vector3f.sub(position, oldPosition, null).length() < 0.01 || !world.positionClear(this)) {
 			position = oldPosition;
 			velocity = new Vector3f();
 		}
