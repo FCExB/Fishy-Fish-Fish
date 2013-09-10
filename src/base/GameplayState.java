@@ -81,8 +81,8 @@ public class GameplayState extends BasicGameState {
 		g.drawString("Score: " + Integer.toString(score), 400, 10);
 
 		int timeLeft = timeLimit - timeRan;
-		int seconds = timeLeft / 1000;
-		int milliseconds = timeLeft % 1000;
+		int seconds = Math.max(timeLeft / 1000, 0);
+		int milliseconds = Math.max(timeLeft % 1000, 0);
 
 		g.drawString("Time left: " + seconds + "." + milliseconds, 400, 30);
 	}
