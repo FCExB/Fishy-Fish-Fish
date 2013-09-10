@@ -20,9 +20,9 @@ public class GameplayState extends BasicGameState {
 	public static int score = 0;
 	private int timeRan = 0;
 
-	private final int timeLimit = 20 * 1000;
+	private final int timeLimit = 5 * 1000;
 
-	public GameplayState(int stateID) {
+	public GameplayState(int stateID) throws SlickException {
 		this.stateID = stateID;
 	}
 

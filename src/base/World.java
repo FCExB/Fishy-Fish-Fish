@@ -22,7 +22,7 @@ public class World {
 
 	private final GameplayState state;
 
-	private final Vector3f fishResetPosition = new Vector3f(400, 0, -200);
+	private final Vector3f fishResetPosition = new Vector3f(400, -20, -200);
 
 	private WaterSurface waterTop;
 	private final ThreeDShape waterSide;
