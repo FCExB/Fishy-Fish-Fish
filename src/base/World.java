@@ -24,6 +24,11 @@ public class World {
 
 	private final Vector3f fishResetPosition = new Vector3f(400, -20, -200);
 
+	private final int waterWidth = 800;
+	private final int waterDepth = 400;
+	private final int waterNumPointsWide = 30;
+	private final int waterNumPointsDeep = 15;
+
 	private WaterSurface waterTop;
 	private final ThreeDShape waterSide;
 
@@ -39,7 +44,8 @@ public class World {
 
 		fish = new Fish(fishResetPosition, new Vector3f(), this);
 
-		waterTop = new WaterSurface(new Vector3f(0, 0, 0), 800, 400, 25, 15);
+		waterTop = new WaterSurface(new Vector3f(0, 0, 0), waterWidth,
+				waterDepth, waterNumPointsWide, waterNumPointsDeep);
 
 		List<Vector3f> waterSideVecs = waterTop.getFrontRow();
 
@@ -122,7 +128,8 @@ public class World {
 
 	public void reset() {
 		fish = new Fish(fishResetPosition, new Vector3f(), this);
-		waterTop = new WaterSurface(new Vector3f(0, 0, 0), 800, 400, 25, 15);
+		waterTop = new WaterSurface(new Vector3f(0, 0, 0), waterWidth,
+				waterDepth, waterNumPointsWide, waterNumPointsDeep);
 	}
 
 	public Color filterAtLocation(Vector3f location) {
@@ -133,11 +140,8 @@ public class World {
 		return position.x > 0 && position.x < 800 && position.y < -15;
 	}
 
-	public void enterWater(Vector3f position, float fishScale) {
-		waterTop.enterWater(position, fishScale);
-	}
-
-	public void exitWater(Vector3f position, float fishScale) {
-		waterTop.exitWater(position, fishScale);
+	public void crossWaterLevel(Vector3f position, float fishScale,
+			float verticalSpeed) {
+		waterTop.crossWaterLevel(position, fishScale, verticalSpeed);
 	}
 }
