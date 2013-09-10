@@ -2,14 +2,13 @@ package gameObjects;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
 
 import util.Assets;
 import base.World;
 import entities.Entity;
 import entities.MovingEntity;
 
-public class Fish extends MovingEntity {
+public abstract class Fish extends MovingEntity {
 
 	private final float speed = 0.04f;
 	private final float waterResistance = 0.02f;
@@ -41,7 +40,7 @@ public class Fish extends MovingEntity {
 
 		lastPos = position;
 
-		// scale = (800 + position.z) / 700;
+		scale = (800 + position.z) / 800;
 
 		if (velocity.lengthSquared() != 0) {
 			if (velocity.x < 0) {
@@ -58,6 +57,8 @@ public class Fish extends MovingEntity {
 		}
 	}
 
+	protected abstract Vector3f getAccelerationDirection(GameContainer gc);
+
 	@Override
 	protected Vector3f acceleration(int deltaT, GameContainer gc) {
 
@@ -68,31 +69,7 @@ public class Fish extends MovingEntity {
 		Vector3f result = new Vector3f();
 
 		if (getVelocity().length() < maxSpeed * scale) {
-			Input input = gc.getInput();
-
-			if (input.isKeyDown(Input.KEY_W)) {
-				Vector3f.add(result, new Vector3f(0, 1, 0), result);
-			}
-
-			if (input.isKeyDown(Input.KEY_S)) {
-				Vector3f.add(result, new Vector3f(0, -1, 0), result);
-			}
-
-			if (input.isKeyDown(Input.KEY_A)) {
-				Vector3f.add(result, new Vector3f(-1, 0, 0), result);
-			}
-
-			if (input.isKeyDown(Input.KEY_D)) {
-				Vector3f.add(result, new Vector3f(1, 0, 0), result);
-			}
-
-			if (input.isKeyDown(Input.KEY_E)) {
-				Vector3f.add(result, new Vector3f(0, 0, -0.5f), result);
-			}
-
-			if (input.isKeyDown(Input.KEY_Q)) {
-				Vector3f.add(result, new Vector3f(0, 0, 0.5f), result);
-			}
+			result = getAccelerationDirection(gc);
 		}
 
 		if (result.lengthSquared() != 0) {

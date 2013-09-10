@@ -1,6 +1,7 @@
 package gameObjects;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
@@ -194,17 +195,49 @@ public class WaterSurface {
 		return new Color(0f, 0f, height, 0.7f);
 	}
 
-	public void render(Camera camera, Graphics g, Fish fish) {
-		boolean fishDrawn = false;
-		float fishZ = fish.getPosition().z;
+	public void render(Camera camera, Graphics g, SortedSet<Fish> fish) {
 
-		for (ThreeDShape shape : polys) {
-			if (!fishDrawn && shape.getMaxZ() > fishZ) {
-				fish.render(camera, g);
-				fishDrawn = true;
+		Iterator<Fish> theFish = fish.iterator();
+		Iterator<ThreeDShape> theShapes = polys.iterator();
+
+		Fish nextFish = theFish.next();
+		ThreeDShape nextShape = theShapes.next();
+
+		boolean fishEmpty = false, shapesEmpty = false;
+
+		while (!fishEmpty && !shapesEmpty) {
+
+			if (nextFish.getPosition().z < nextShape.getMaxZ()) {
+				nextFish.render(camera, g);
+				if (theFish.hasNext()) {
+					nextFish = theFish.next();
+				} else {
+					fishEmpty = true;
+				}
+			} else {
+				nextShape.render(camera, g);
+				if (theShapes.hasNext()) {
+					nextShape = theShapes.next();
+				} else {
+					shapesEmpty = true;
+				}
 			}
+		}
 
-			shape.render(camera, g);
+		if (fishEmpty) {
+			nextShape.render(camera, g);
+			while (theShapes.hasNext()) {
+				nextShape = theShapes.next();
+				nextShape.render(camera, g);
+			}
+		}
+
+		if (shapesEmpty) {
+			nextFish.render(camera, g);
+			while (theFish.hasNext()) {
+				nextFish = theFish.next();
+				nextFish.render(camera, g);
+			}
 		}
 	}
 

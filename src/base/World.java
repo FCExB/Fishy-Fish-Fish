@@ -1,12 +1,17 @@
 package base;
 
 import entities.Entity;
+import gameObjects.AIFish;
 import gameObjects.Fish;
+import gameObjects.PlayerFish;
 import gameObjects.ThreeDShape;
 import gameObjects.WaterSurface;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
@@ -36,13 +41,19 @@ public class World {
 	private final ThreeDShape jettyFront;
 	private final ThreeDShape bucketFront;
 
-	private Fish fish;
+	private PlayerFish player = new PlayerFish(fishResetPosition,
+			new Vector3f(), this);
+
+	private final Set<Fish> fish;
 
 	public World(GameplayState state) throws SlickException {
 
 		this.state = state;
 
-		fish = new Fish(fishResetPosition, new Vector3f(), this);
+		fish = new HashSet<Fish>();
+
+		fish.add(player);
+		fish.add(new AIFish(this));
 
 		waterTop = new WaterSurface(new Vector3f(0, 0, 0), waterWidth,
 				waterDepth, waterNumPointsWide, waterNumPointsDeep);
@@ -86,9 +97,12 @@ public class World {
 
 	public void update(GameContainer container, int delta) {
 		waterTop.updatePoints(delta);
-		fish.update(delta, container);
 
-		Vector3f position = fish.getPosition();
+		for (Fish f : fish) {
+			f.update(delta, container);
+		}
+
+		Vector3f position = player.getPosition();
 
 		if (position.x > 880 && position.x < 930 && position.y < 150) {
 			state.fishLandsInBucket();
@@ -98,12 +112,30 @@ public class World {
 	public void render(Camera camera, Graphics g) {
 		Assets.WATER_SKY_BACKGROUND.draw(0, 0);
 
-		waterTop.render(camera, g, fish);
+		waterTop.render(camera, g, new TreeSet<Fish>(fish));
 		waterSide.render(camera, g);
 		jettyTop.render(camera, g);
 		bucketFront.render(camera, g);
 		jettyFront.render(camera, g);
 
+	}
+
+	public boolean positionClear(Vector3f position) {
+
+		if (position.z < -400) {
+			return false;
+		}
+
+		if (position.z > -7)
+			return false;
+
+		if (position.x < 1)
+			return false;
+
+		if (position.x > 770 && position.y < 100)
+			return false;
+
+		return true;
 	}
 
 	public boolean positionClear(Entity entity) {
@@ -127,7 +159,10 @@ public class World {
 	}
 
 	public void reset() {
-		fish = new Fish(fishResetPosition, new Vector3f(), this);
+		fish.clear();
+		player = new PlayerFish(fishResetPosition, new Vector3f(), this);
+		fish.add(player);
+		fish.add(new AIFish(this));
 		waterTop.reset();
 	}
 
@@ -142,5 +177,13 @@ public class World {
 	public void crossWaterLevel(Vector3f position, float fishScale,
 			float verticalSpeed) {
 		waterTop.crossWaterLevel(position, fishScale, verticalSpeed);
+	}
+
+	public int getWidth() {
+		return waterWidth;
+	}
+
+	public int getDepth() {
+		return waterDepth;
 	}
 }
