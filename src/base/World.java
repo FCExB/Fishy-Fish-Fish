@@ -12,7 +12,6 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import util.Assets;
@@ -87,12 +86,6 @@ public class World {
 
 		if (position.x > 880 && position.x < 930 && position.y < 150) {
 			state.fishLandsInBucket();
-		}
-
-		Input input = container.getInput();
-
-		if (input.isKeyPressed(Input.KEY_R)) {
-			reset();
 		}
 	}
 

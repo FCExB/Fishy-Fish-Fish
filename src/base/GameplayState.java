@@ -3,6 +3,7 @@ package base;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -19,7 +20,7 @@ public class GameplayState extends BasicGameState {
 	public static int score = 0;
 	private int timeRan = 0;
 
-	private final int timeLimit = 30 * 1000;
+	private final int timeLimit = 20 * 1000;
 
 	public GameplayState(int stateID) {
 		this.stateID = stateID;
@@ -43,11 +44,18 @@ public class GameplayState extends BasicGameState {
 
 		world.update(container, delta);
 
-		actOnInput(container, game, delta);
+		actOnInput(container, game);
 	}
 
-	private void actOnInput(GameContainer container, StateBasedGame game,
-			int delta) {
+	private void actOnInput(GameContainer container, StateBasedGame game) {
+
+		Input input = container.getInput();
+
+		if (input.isKeyPressed(Input.KEY_R)) {
+			world.reset();
+		} else if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+			game.enterState(FishGame.MAIN_MENU_STATE);
+		}
 
 	}
 

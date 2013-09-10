@@ -8,11 +8,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class GameOverState extends BasicGameState {
+public class MainMenuState extends BasicGameState {
 
 	private final int stateID;
 
-	public GameOverState(int stateID) {
+	public MainMenuState(int stateID) {
 		this.stateID = stateID;
 	}
 
@@ -28,15 +28,8 @@ public class GameOverState extends BasicGameState {
 			throws SlickException {
 		g.setColor(Color.white);
 
-		// Font font = new Font("Arial", Font.BOLD, 20);
-		// g.setFont(new UnicodeFont(font, 12, false, false));
-
-		g.drawString("GAME OVER!!!", 400, 200);
-		g.drawString("Score: " + GameplayState.score, 400, 220);
-
-		g.drawString("Press SPACE for instant restart", 400, 260);
-
-		g.drawString("Or press ESCAPE for main menu", 400, 280);
+		g.drawString("Here, Fishy Fish Fish!", 400, 200);
+		g.drawString("Hit SPACE to play", 400, 230);
 	}
 
 	@Override
@@ -46,8 +39,6 @@ public class GameOverState extends BasicGameState {
 
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			game.enterState(FishGame.GAMEPLAY_STATE);
-		} else if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			game.enterState(FishGame.MAIN_MENU_STATE);
 		}
 	}
 
