@@ -19,22 +19,28 @@ import util.Assets;
 
 public class World {
 
-	public static final float GRAVITY = 0.009f;
+	public static final float GRAVITY = 0.013f;
+
+	private final GameplayState state;
+
+	private final Vector3f fishResetPosition = new Vector3f(400, 0, -200);
 
 	private WaterSurface waterTop;
-	private ThreeDShape waterSide;
+	private final ThreeDShape waterSide;
 
-	private ThreeDShape jettyTop;
-	private ThreeDShape jettyFront;
-	private ThreeDShape bucketFront;
+	private final ThreeDShape jettyTop;
+	private final ThreeDShape jettyFront;
+	private final ThreeDShape bucketFront;
 
 	private Fish fish;
 
-	public World() throws SlickException {
+	public World(GameplayState state) throws SlickException {
 
-		fish = new Fish(new Vector3f(400, 0, -70), new Vector3f(), this);
+		this.state = state;
 
-		waterTop = new WaterSurface(new Vector3f(0, 0, 0), 800, 400, 50, 50);
+		fish = new Fish(fishResetPosition, new Vector3f(), this);
+
+		waterTop = new WaterSurface(new Vector3f(0, 0, 0), 800, 400, 25, 15);
 
 		List<Vector3f> waterSideVecs = waterTop.getFrontRow();
 
@@ -50,7 +56,8 @@ public class World {
 		jettyFrontVecs.add(new Vector3f(1000, -600, 0));
 		jettyFrontVecs.add(new Vector3f(800, -600, 0));
 
-		jettyFront = new ThreeDShape(jettyFrontVecs, new Color(0.9f, 0f, 0f, 0.9f));
+		jettyFront = new ThreeDShape(jettyFrontVecs, new Color(0.9f, 0f, 0f,
+				0.9f));
 
 		List<Vector3f> jettyTopVecs = new ArrayList<Vector3f>();
 
@@ -75,17 +82,17 @@ public class World {
 	public void update(GameContainer container, int delta) {
 		waterTop.updatePoints(delta);
 		fish.update(delta, container);
-		
+
 		Vector3f position = fish.getPosition();
-		
-		if(position.x > 880 && position.x < 930 && position.y < 150){
-			fish = new Fish(new Vector3f(400, 0, -70), new Vector3f(), this); 
+
+		if (position.x > 880 && position.x < 930 && position.y < 150) {
+			state.fishLandsInBucket();
 		}
-		
+
 		Input input = container.getInput();
-		
-		if(input.isKeyPressed(Input.KEY_ESCAPE)){
-			fish = new Fish(new Vector3f(400, 0, -70), new Vector3f(), this);
+
+		if (input.isKeyPressed(Input.KEY_R)) {
+			reset();
 		}
 	}
 
@@ -118,6 +125,11 @@ public class World {
 			return false;
 
 		return true;
+	}
+
+	public void reset() {
+		fish = new Fish(fishResetPosition, new Vector3f(), this);
+		waterTop = new WaterSurface(new Vector3f(0, 0, 0), 800, 400, 25, 15);
 	}
 
 	public Color filterAtLocation(Vector3f location) {
