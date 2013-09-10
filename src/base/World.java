@@ -27,12 +27,12 @@ public class World {
 
 	private final GameplayState state;
 
-	private final Vector3f fishResetPosition = new Vector3f(400, -20, -200);
+	private final Vector3f playerResetPosition = new Vector3f(400, -20, -100);
 
 	private final int waterWidth = 800;
 	private final int waterDepth = 400;
-	private final int waterNumPointsWide = 30;
-	private final int waterNumPointsDeep = 15;
+	private final int waterNumPointsWide = 35;
+	private final int waterNumPointsDeep = 17;
 
 	private final WaterSurface waterTop;
 	private final ThreeDShape waterSide;
@@ -41,7 +41,7 @@ public class World {
 	private final ThreeDShape jettyFront;
 	private final ThreeDShape bucketFront;
 
-	private PlayerFish player = new PlayerFish(fishResetPosition,
+	private PlayerFish player = new PlayerFish(playerResetPosition,
 			new Vector3f(), this);
 
 	private final Set<Fish> fish;
@@ -51,9 +51,6 @@ public class World {
 		this.state = state;
 
 		fish = new HashSet<Fish>();
-
-		fish.add(player);
-		fish.add(new AIFish(this));
 
 		waterTop = new WaterSurface(new Vector3f(0, 0, 0), waterWidth,
 				waterDepth, waterNumPointsWide, waterNumPointsDeep);
@@ -106,6 +103,7 @@ public class World {
 
 		if (position.x > 880 && position.x < 930 && position.y < 150) {
 			state.fishLandsInBucket();
+			fish.add(new AIFish(this));
 		}
 	}
 
@@ -158,12 +156,23 @@ public class World {
 		return true;
 	}
 
-	public void reset() {
-		fish.clear();
-		player = new PlayerFish(fishResetPosition, new Vector3f(), this);
+	public void resetPlayer() {
+		fish.remove(player);
+		player = new PlayerFish(playerResetPosition, new Vector3f(), this);
 		fish.add(player);
-		fish.add(new AIFish(this));
+	}
+
+	public void resetAll() {
+		fish.clear();
+
+		player = new PlayerFish(playerResetPosition, new Vector3f(), this);
+		fish.add(player);
+
 		waterTop.reset();
+
+		for (int i = 0; i < 100; i++) {
+			fish.add(new AIFish(this));
+		}
 	}
 
 	public Color filterAtLocation(Vector3f location) {

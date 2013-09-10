@@ -16,7 +16,7 @@ import base.Camera;
 public class WaterSurface {
 	private static final int UPDATE_FREQUENCY = 100;
 
-	private static final float SHIMMER_CHANCE = 0.3f;
+	private static final float SHIMMER_CHANCE = 0.4f;
 	private static final float SHIMMER_RANGE = 0.6f;
 
 	private static final float INCREASE_SHIMMER_FACTOR = 1.2f;

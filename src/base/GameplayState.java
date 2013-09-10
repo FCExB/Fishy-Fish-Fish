@@ -52,7 +52,7 @@ public class GameplayState extends BasicGameState {
 		Input input = container.getInput();
 
 		if (input.isKeyPressed(Input.KEY_R)) {
-			world.reset();
+			world.resetPlayer();
 		} else if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(FishGame.MAIN_MENU_STATE);
 		}
@@ -61,7 +61,7 @@ public class GameplayState extends BasicGameState {
 
 	public void fishLandsInBucket() {
 		score++;
-		world.reset();
+		world.resetPlayer();
 	}
 
 	@Override
@@ -97,6 +97,6 @@ public class GameplayState extends BasicGameState {
 			throws SlickException {
 		score = 0;
 		timeRan = 0;
-		world.reset();
+		world.resetAll();
 	}
 }
