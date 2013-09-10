@@ -24,6 +24,8 @@ public class WaterSurface {
 	private final int numDeep;
 	private final int numWide;
 
+	private final float waterLevel;
+
 	private int timeSinceUpdate = 0;
 
 	private final Random rand = new Random();
@@ -32,6 +34,8 @@ public class WaterSurface {
 
 	public WaterSurface(Vector3f frontLeft, float width, float depth,
 			int numWide, int numDeep) {
+		waterLevel = frontLeft.y;
+
 		float dx = width / (numWide - 1);
 		float dz = depth / (numDeep - 1);
 
@@ -130,7 +134,7 @@ public class WaterSurface {
 
 			for (int z = 0; z < numDeep; z++) {
 				for (int x = 0; x < numWide; x++) {
-					float average = 0;
+					float average = waterLevel;
 					int numSides = 1;
 
 					if (z - 1 >= 0) {
@@ -212,27 +216,6 @@ public class WaterSurface {
 		return result;
 	}
 
-	public void enterWater(Vector3f entryPoint, float fishScale,
-			float speedScaler) {
-		float firstRingRange = 40 * fishScale * speedScaler;
-		float secondRingRange = 80 * fishScale * speedScaler;
-		float downSize = 70 * fishScale * speedScaler;
-		float upSize = 30 * fishScale * speedScaler;
-
-		for (Vector3f[] vecs : points) {
-			for (Vector3f vec : vecs) {
-				Vector3f difference = Vector3f.sub(vec, entryPoint, null);
-				float distance = difference.length();
-
-				if (distance < firstRingRange) {
-					vec.y -= downSize;
-				} else if (distance < secondRingRange) {
-					vec.y += upSize;
-				}
-			}
-		}
-	}
-
 	public void crossWaterLevel(Vector3f crossPoint, float fishScale,
 			float verticalSpeed) {
 
@@ -255,18 +238,13 @@ public class WaterSurface {
 				}
 			}
 		}
+
 	}
 
-	public void exitWater(Vector3f exitPoint, float fishScale, float speedScaler) {
-		float range = 60 * fishScale * speedScaler;
-		float size = 55 * fishScale * speedScaler;
-
-		for (Vector3f[] vecs : points) {
-			for (Vector3f vec : vecs) {
-				Vector3f difference = Vector3f.sub(vec, exitPoint, null);
-				if (difference.length() < range) {
-					vec.y += size;
-				}
+	public void reset() {
+		for (Vector3f[] line : points) {
+			for (Vector3f point : line) {
+				point.y = waterLevel;
 			}
 		}
 	}

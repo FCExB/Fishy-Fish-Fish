@@ -29,7 +29,7 @@ public class World {
 	private final int waterNumPointsWide = 30;
 	private final int waterNumPointsDeep = 15;
 
-	private WaterSurface waterTop;
+	private final WaterSurface waterTop;
 	private final ThreeDShape waterSide;
 
 	private final ThreeDShape jettyTop;
@@ -128,8 +128,7 @@ public class World {
 
 	public void reset() {
 		fish = new Fish(fishResetPosition, new Vector3f(), this);
-		waterTop = new WaterSurface(new Vector3f(0, 0, 0), waterWidth,
-				waterDepth, waterNumPointsWide, waterNumPointsDeep);
+		waterTop.reset();
 	}
 
 	public Color filterAtLocation(Vector3f location) {

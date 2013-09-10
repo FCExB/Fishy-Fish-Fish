@@ -43,10 +43,13 @@ public class Fish extends MovingEntity {
 
 		// scale = (800 + position.z) / 700;
 
-		if (velocity.x < 0) {
-			horizontalFlip = true;
-		} else
-			horizontalFlip = false;
+		if (velocity.lengthSquared() != 0) {
+			if (velocity.x < 0) {
+				horizontalFlip = true;
+			} else {
+				horizontalFlip = false;
+			}
+		}
 
 		float angle = (float) Math.toDegrees(Math
 				.atan(-velocity.y / velocity.x));
