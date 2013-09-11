@@ -16,7 +16,7 @@ public class FishGame extends StateBasedGame {
 	}
 
 	@Override
-	public void initStatesList(GameContainer arg0) throws SlickException {
+	public void initStatesList(GameContainer gc) throws SlickException {
 		this.addState(new MainMenuState(MAIN_MENU_STATE));
 		this.addState(new GameplayState(GAMEPLAY_STATE));
 		this.addState(new GameOverState(GAMEOVER_STATE));

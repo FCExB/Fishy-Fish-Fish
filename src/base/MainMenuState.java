@@ -17,9 +17,9 @@ public class MainMenuState extends BasicGameState {
 	}
 
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1)
+	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		gc.setTargetFrameRate(30);
 
 	}
 
