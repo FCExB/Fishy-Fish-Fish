@@ -12,15 +12,17 @@ public class Assets {
 
 	public Assets() throws SlickException {
 
-		FISH_ANIMATED = new Image(
-				ResourceLoader.getResourceAsStream("bin/data/fish sprite.png"),
-				"bin/data/fish sprite.png", false);
+		// FISH_ANIMATED = new Image(
+		// ResourceLoader
+		// .getResourceAsStream("http://fcexb.com/test/data/fishSmall.png"),
+		// "http://fcexb.com/test//data/fish sprite.png", false);
+
 		FISH_STILL = new Image(
-				ResourceLoader.getResourceAsStream("bin/data/fishSmall.png"),
-				"bin/data/fishSmall.png", false);
+				ResourceLoader.getResourceAsStream("/data/fishSmall.png"),
+				"/data/fishSmall.png", false);
 
 		WATER_SKY_BACKGROUND = new Image(
-				ResourceLoader.getResourceAsStream("bin/data/waterSky.jpg"),
-				"bin/data/waterSky.jpg", false);
+				ResourceLoader.getResourceAsStream("/data/waterSky.jpg"),
+				"/data/waterSky.jpg", false);
 	}
 }
