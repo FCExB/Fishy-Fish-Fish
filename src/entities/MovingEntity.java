@@ -58,7 +58,8 @@ public abstract class MovingEntity extends Entity {
 		float bounceDamping = 0.4f;
 
 		if (!world.positionClear(this)) {
-			if (smallestY() < 50 && greatestX() > 800) {
+
+			if (smallestY() < 50 && greatestY() > 50 && greatestX() > 800) {
 				position = oldPosition;
 				velocity = new Vector3f();
 				return;

@@ -17,7 +17,7 @@ public abstract class Fish extends MovingEntity {
 	public Fish(Vector3f position, Vector3f velocity, World world) {
 		// super(new SpriteSheet(Assets.FISH_ANIMATED, 170, 227), 0.5f,
 		// position, velocity, world);
-		super(Assets.FISH_STILL, 0.9f, 20, position, velocity, world);
+		super(Assets.FISH_STILL, 0.9f, 16, position, velocity, world);
 	}
 
 	@Override

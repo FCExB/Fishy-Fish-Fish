@@ -87,7 +87,7 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float greatestZ() {
-		return position.z + depth / 2;
+		return position.z + (depth / 2) * scale;
 	}
 
 	public float smallestX() {
@@ -99,7 +99,7 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float smallestZ() {
-		return position.z - depth / 2;
+		return position.z - (depth / 2) * scale;
 	}
 
 	protected int getAnimationFrame() {

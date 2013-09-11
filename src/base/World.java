@@ -137,11 +137,11 @@ public class World {
 
 	public boolean positionClear(Entity entity) {
 
-		for (Fish f : fish) {
-			if (entity.collides(f)) {
-				return false;
-			}
-		}
+		// for (Fish f : fish) {
+		// if (entity.collides(f)) {
+		// return false;
+		// }
+		// }
 
 		if (entity.smallestX() < 0) {
 			return false;
@@ -175,9 +175,9 @@ public class World {
 
 		waterTop.reset();
 
-		// for (int i = 0; i < 100; i++) {
-		// fish.add(new AIFish(this));
-		// }
+		for (int i = 0; i < 10; i++) {
+			fish.add(new AIFish(this));
+		}
 	}
 
 	public Color filterAtLocation(Vector3f location) {
