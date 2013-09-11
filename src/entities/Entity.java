@@ -5,7 +5,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Shape;
 
 import util.SpriteSheet;
 import base.Camera;
@@ -26,7 +25,7 @@ public abstract class Entity implements Comparable<Entity> {
 	protected final int originalHeight;
 	protected final int depth;
 	protected float scale;
-	
+
 	protected float rotationAngle = 0;
 	protected boolean horizontalFlip = false;
 
@@ -57,10 +56,21 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public int getHeight() {
-		return originalHeight;
+		if (Math.abs(rotationAngle) < 50) {
+
+			return originalHeight;
+		}
+
+		return originalWidth;
 	}
 
 	public int getWidth() {
+
+		if (Math.abs(rotationAngle) > 50) {
+
+			return originalHeight;
+		}
+
 		return originalWidth;
 	}
 
@@ -69,11 +79,11 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float greatestX() {
-		return position.x + originalWidth / 2;
+		return position.x + (getWidth() / 2) * scale;
 	}
 
 	public float greatestY() {
-		return position.y + originalHeight;
+		return position.y + (getHeight()) * scale;
 	}
 
 	public float greatestZ() {
@@ -81,7 +91,7 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float smallestX() {
-		return position.x - originalWidth / 2;
+		return position.x - +(getWidth() / 2) * scale;
 	}
 
 	public float smallestY() {
@@ -114,11 +124,11 @@ public abstract class Entity implements Comparable<Entity> {
 		float yScale = otherScaler;
 
 		Image image = animation.getSubImage(animationFrame, spriteSheetRow);
-		
+
 		image = image.getFlippedCopy(horizontalFlip, false);
-		
+
 		image.setRotation(rotationAngle);
-		
+
 		image.draw(x, y, originalWidth * scale * xScale, originalHeight * scale
 				* yScale);
 

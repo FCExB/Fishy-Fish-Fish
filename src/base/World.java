@@ -23,11 +23,11 @@ import util.Assets;
 
 public class World {
 
-	public static final float GRAVITY = 0.013f;
+	public static final float GRAVITY = 0.012f;
 
 	private final GameplayState state;
 
-	private final Vector3f playerResetPosition = new Vector3f(400, -20, -100);
+	private final Vector3f playerResetPosition = new Vector3f(400, -20, -200);
 
 	private final int waterWidth = 800;
 	private final int waterDepth = 400;
@@ -64,29 +64,29 @@ public class World {
 
 		List<Vector3f> jettyFrontVecs = new ArrayList<Vector3f>();
 
-		jettyFrontVecs.add(new Vector3f(800, 100, 0));
-		jettyFrontVecs.add(new Vector3f(1000, 100, 0));
-		jettyFrontVecs.add(new Vector3f(1000, -600, 0));
-		jettyFrontVecs.add(new Vector3f(800, -600, 0));
+		jettyFrontVecs.add(new Vector3f(800, 50, -100));
+		jettyFrontVecs.add(new Vector3f(1000, 50, -100));
+		jettyFrontVecs.add(new Vector3f(1000, -600, -100));
+		jettyFrontVecs.add(new Vector3f(800, -600, -100));
 
 		jettyFront = new ThreeDShape(jettyFrontVecs, new Color(0.9f, 0f, 0f,
 				0.9f));
 
 		List<Vector3f> jettyTopVecs = new ArrayList<Vector3f>();
 
-		jettyTopVecs.add(new Vector3f(800, 100, 0));
-		jettyTopVecs.add(new Vector3f(1000, 100, 0));
-		jettyTopVecs.add(new Vector3f(1000, 100, -100));
-		jettyTopVecs.add(new Vector3f(800, 100, -100));
+		jettyTopVecs.add(new Vector3f(800, 50, -100));
+		jettyTopVecs.add(new Vector3f(1000, 50, -100));
+		jettyTopVecs.add(new Vector3f(1000, 50, -300));
+		jettyTopVecs.add(new Vector3f(800, 50, -300));
 
 		jettyTop = new ThreeDShape(jettyTopVecs, new Color(0.4f, 0f, 0f, 0.8f));
 
 		List<Vector3f> bucketFrontVecs = new ArrayList<Vector3f>();
 
-		bucketFrontVecs.add(new Vector3f(880, 100, 0));
-		bucketFrontVecs.add(new Vector3f(920, 100, 0));
-		bucketFrontVecs.add(new Vector3f(930, 150, 0));
-		bucketFrontVecs.add(new Vector3f(870, 150, 0));
+		bucketFrontVecs.add(new Vector3f(880, 50, -150));
+		bucketFrontVecs.add(new Vector3f(920, 50, -150));
+		bucketFrontVecs.add(new Vector3f(930, 100, -150));
+		bucketFrontVecs.add(new Vector3f(870, 100, -150));
 
 		bucketFront = new ThreeDShape(bucketFrontVecs, new Color(0f, 0.6f, 0f,
 				0.8f));
@@ -101,7 +101,7 @@ public class World {
 
 		Vector3f position = player.getPosition();
 
-		if (position.x > 880 && position.x < 930 && position.y < 150) {
+		if (position.x > 880 && position.x < 930 && position.y < 100) {
 			state.fishLandsInBucket();
 			fish.add(new AIFish(this));
 		}
@@ -110,27 +110,26 @@ public class World {
 	public void render(Camera camera, Graphics g) {
 		Assets.WATER_SKY_BACKGROUND.draw(0, 0);
 
+		jettyFront.render(camera, g);
+		jettyTop.render(camera, g);
 		waterTop.render(camera, g, new TreeSet<Fish>(fish));
 		waterSide.render(camera, g);
-		jettyTop.render(camera, g);
 		bucketFront.render(camera, g);
-		jettyFront.render(camera, g);
-
 	}
 
 	public boolean positionClear(Vector3f position) {
 
-		if (position.z < -400) {
+		if (position.z < -450) {
 			return false;
 		}
 
-		if (position.z > -7)
+		if (position.z > -50)
 			return false;
 
-		if (position.x < 1)
+		if (position.x < 50)
 			return false;
 
-		if (position.x > 770 && position.y < 100)
+		if (position.x > 750)
 			return false;
 
 		return true;
@@ -138,19 +137,25 @@ public class World {
 
 	public boolean positionClear(Entity entity) {
 
-		Vector3f position = entity.getPosition();
+		for (Fish f : fish) {
+			if (entity.collides(f)) {
+				return false;
+			}
+		}
 
-		if (position.z < -400) {
+		if (entity.smallestX() < 0) {
 			return false;
 		}
 
-		if (position.z > -7)
+		if (entity.greatestX() > 800 && entity.smallestY() < 50) {
 			return false;
+		}
 
-		if (position.x < 1)
+		if (entity.smallestZ() < -400) {
 			return false;
+		}
 
-		if (position.x > 770 && position.y < 100)
+		if (entity.greatestZ() > 0)
 			return false;
 
 		return true;
@@ -170,9 +175,9 @@ public class World {
 
 		waterTop.reset();
 
-		for (int i = 0; i < 100; i++) {
-			fish.add(new AIFish(this));
-		}
+		// for (int i = 0; i < 100; i++) {
+		// fish.add(new AIFish(this));
+		// }
 	}
 
 	public Color filterAtLocation(Vector3f location) {

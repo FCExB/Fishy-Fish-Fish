@@ -12,12 +12,12 @@ public abstract class Fish extends MovingEntity {
 
 	private final float speed = 0.04f;
 	private final float waterResistance = 0.02f;
-	private final float maxSpeed = 15f;
+	private final float maxSpeed = 15.5f;
 
 	public Fish(Vector3f position, Vector3f velocity, World world) {
 		// super(new SpriteSheet(Assets.FISH_ANIMATED, 170, 227), 0.5f,
 		// position, velocity, world);
-		super(Assets.FISH_STILL, 0.9f, position, velocity, world);
+		super(Assets.FISH_STILL, 0.9f, 20, position, velocity, world);
 	}
 
 	@Override

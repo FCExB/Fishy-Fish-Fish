@@ -34,14 +34,6 @@ public class PlayerFish extends Fish {
 			Vector3f.add(result, new Vector3f(1, 0, 0), result);
 		}
 
-		if (input.isKeyDown(Input.KEY_E)) {
-			Vector3f.add(result, new Vector3f(0, 0, -0.5f), result);
-		}
-
-		if (input.isKeyDown(Input.KEY_Q)) {
-			Vector3f.add(result, new Vector3f(0, 0, 0.5f), result);
-		}
-
 		return result;
 	}
 }
