@@ -252,7 +252,7 @@ public class WaterSurface {
 	public void crossWaterLevel(Vector3f crossPoint, float fishScale,
 			float verticalSpeed) {
 
-		verticalSpeed += 0.2;
+		verticalSpeed += 0.2 * Math.signum(verticalSpeed);
 
 		float firstRingRange = 40 * fishScale * Math.abs(verticalSpeed);
 		float secondRingRange = 60 * fishScale * Math.abs(verticalSpeed);

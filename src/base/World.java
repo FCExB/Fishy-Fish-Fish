@@ -175,9 +175,9 @@ public class World {
 
 		waterTop.reset();
 
-		for (int i = 0; i < 10; i++) {
-			fish.add(new AIFish(this));
-		}
+		// for (int i = 0; i < 10; i++) {
+		// fish.add(new AIFish(this));
+		// }
 	}
 
 	public Color filterAtLocation(Vector3f location) {

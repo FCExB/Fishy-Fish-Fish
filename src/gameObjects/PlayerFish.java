@@ -4,12 +4,13 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
+import util.Assets;
 import base.World;
 
 public class PlayerFish extends Fish {
 
 	public PlayerFish(Vector3f position, Vector3f velocity, World world) {
-		super(position, velocity, world);
+		super(Assets.FISH_STILL, 1.2f, position, velocity, world);
 	}
 
 	@Override

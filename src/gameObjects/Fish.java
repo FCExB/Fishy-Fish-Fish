@@ -2,8 +2,8 @@ package gameObjects;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 
-import util.Assets;
 import base.World;
 import entities.Entity;
 import entities.MovingEntity;
@@ -14,10 +14,11 @@ public abstract class Fish extends MovingEntity {
 	private final float waterResistance = 0.02f;
 	private final float maxSpeed = 15.5f;
 
-	public Fish(Vector3f position, Vector3f velocity, World world) {
+	public Fish(Image image, float defaultScale, Vector3f position,
+			Vector3f velocity, World world) {
 		// super(new SpriteSheet(Assets.FISH_ANIMATED, 170, 227), 0.5f,
 		// position, velocity, world);
-		super(Assets.FISH_STILL, 0.9f, 16, position, velocity, world);
+		super(image, defaultScale, 16, position, velocity, world);
 	}
 
 	@Override
@@ -35,12 +36,13 @@ public abstract class Fish extends MovingEntity {
 		Vector3f velocity = getVelocity();
 
 		if ((!inWaterLast && inWaterNow) || (!inWaterNow && inWaterLast)) {
-			world.crossWaterLevel(position, scale, velocity.y / maxSpeed);
+			world.crossWaterLevel(position, changingScale, velocity.y
+					/ maxSpeed);
 		}
 
 		lastPos = position;
 
-		scale = (800 + position.z) / 800;
+		changingScale = (800 + position.z) / 800;
 
 		if (velocity.lengthSquared() != 0) {
 			if (velocity.x < 0) {
@@ -68,13 +70,13 @@ public abstract class Fish extends MovingEntity {
 
 		Vector3f result = new Vector3f();
 
-		if (getVelocity().length() < maxSpeed * scale) {
+		if (getVelocity().length() < maxSpeed * changingScale) {
 			result = getAccelerationDirection(gc);
 		}
 
 		if (result.lengthSquared() != 0) {
 
-			result.normalise().scale(speed * scale * deltaT);
+			result.normalise().scale(speed * changingScale * deltaT);
 
 			return result;
 		} else {
@@ -82,7 +84,7 @@ public abstract class Fish extends MovingEntity {
 
 			if (velocity.lengthSquared() != 0) {
 				return (Vector3f) velocity.normalise().negate()
-						.scale(waterResistance * scale * deltaT);
+						.scale(waterResistance * changingScale * deltaT);
 			} else
 				return result;
 		}

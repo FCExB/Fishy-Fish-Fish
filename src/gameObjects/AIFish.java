@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.GameContainer;
 
+import util.Assets;
 import base.World;
 
 public class AIFish extends Fish {
@@ -16,9 +17,9 @@ public class AIFish extends Fish {
 	private Vector3f nextPoint;
 
 	public AIFish(World world) {
-		super(new Vector3f(rand.nextInt(world.getWidth() - 100) + 50,
-				-rand.nextInt(lowestHeight),
-				-rand.nextInt(world.getDepth() + 100) - 50), new Vector3f(),
+		super(Assets.FISH_STILL2, 2.1f, new Vector3f(rand.nextInt(world
+				.getWidth() - 100) + 50, -rand.nextInt(lowestHeight),
+				-rand.nextInt(world.getDepth() - 100) - 50), new Vector3f(),
 				world);
 
 		selectNextPoint();

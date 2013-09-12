@@ -24,7 +24,8 @@ public abstract class Entity implements Comparable<Entity> {
 	protected final int originalWidth;
 	protected final int originalHeight;
 	protected final int depth;
-	protected float scale;
+	private final float fixedScale;
+	protected float changingScale = 1f;
 
 	protected float rotationAngle = 0;
 	protected boolean horizontalFlip = false;
@@ -40,7 +41,7 @@ public abstract class Entity implements Comparable<Entity> {
 		animation = ss;
 		originalWidth = ss.getSpriteWidth();
 		originalHeight = ss.getSpriteHeight();
-		this.scale = scale;
+		this.fixedScale = scale;
 		this.depth = depth;
 		this.solid = solid;
 	}
@@ -79,19 +80,19 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float greatestX() {
-		return position.x + (getWidth() / 2) * scale;
+		return position.x + (getWidth() / 2) * fixedScale * changingScale;
 	}
 
 	public float greatestY() {
-		return position.y + (getHeight()) * scale;
+		return position.y + (getHeight()) * fixedScale * changingScale;
 	}
 
 	public float greatestZ() {
-		return position.z + (depth / 2) * scale;
+		return position.z + (depth / 2) * fixedScale * changingScale;
 	}
 
 	public float smallestX() {
-		return position.x - +(getWidth() / 2) * scale;
+		return position.x - +(getWidth() / 2) * fixedScale * changingScale;
 	}
 
 	public float smallestY() {
@@ -99,7 +100,7 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 
 	public float smallestZ() {
-		return position.z - (depth / 2) * scale;
+		return position.z - (depth / 2) * fixedScale * changingScale;
 	}
 
 	protected int getAnimationFrame() {
@@ -116,10 +117,11 @@ public abstract class Entity implements Comparable<Entity> {
 		float zScaler = camera.zScaler();
 		float otherScaler = camera.otherScaler();
 
-		int x = (int) (Math.round(position.getX() - camera.getX()) + 500 - (originalWidth * scale) / 2);
+		int x = (int) (Math.round(position.getX() - camera.getX()) + 500 - (originalWidth
+				* fixedScale * changingScale) / 2);
 		int y = Math.round((position.getZ() - camera.getY()) * zScaler + 300
-				- originalHeight * scale * otherScaler - position.y
-				* otherScaler);
+				- originalHeight * fixedScale * changingScale * otherScaler
+				- position.y * otherScaler);
 		float xScale = 1;
 		float yScale = otherScaler;
 
@@ -129,8 +131,8 @@ public abstract class Entity implements Comparable<Entity> {
 
 		image.setRotation(rotationAngle);
 
-		image.draw(x, y, originalWidth * scale * xScale, originalHeight * scale
-				* yScale);
+		image.draw(x, y, originalWidth * fixedScale * changingScale * xScale,
+				originalHeight * fixedScale * changingScale * yScale);
 
 		// renderExtras(camera, g, filter);
 		// }
