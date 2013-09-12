@@ -31,8 +31,8 @@ public class World {
 
 	private final int waterWidth = 800;
 	private final int waterDepth = 400;
-	private final int waterNumPointsWide = 35;
-	private final int waterNumPointsDeep = 17;
+	private final int waterNumPointsWide = 32;
+	private final int waterNumPointsDeep = 16;
 
 	private final WaterSurface waterTop;
 	private final ThreeDShape waterSide;
