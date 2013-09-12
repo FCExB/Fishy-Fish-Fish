@@ -117,7 +117,11 @@ public class World {
 		bucketFront.render(camera, g);
 	}
 
-	private boolean hitFish(Entity entity) {
+	public boolean hitFish(Entity entity) {
+		if (entity != player) {
+			return false;
+		}
+
 		for (Fish ph : fish) {
 			if (entity.collides(ph)) {
 				return true;
@@ -145,28 +149,24 @@ public class World {
 		return true;
 	}
 
-	public boolean positionClear(Entity entity) {
+	public Vector3f hitBoundry(Entity entity) {
 
 		if (entity.smallestX() < 0) {
-			return false;
+			return new Vector3f(1, 0, 0);
 		}
 
 		if (entity.greatestX() > 800 && entity.smallestY() < 50) {
-			return false;
+			return new Vector3f(1, 0, 0);
 		}
 
 		if (entity.smallestZ() < -400) {
-			return false;
+			return new Vector3f(0, 0, 1);
 		}
 
 		if (entity.greatestZ() > 0)
-			return false;
+			return new Vector3f(0, 0, 1);
 
-		if (entity instanceof PlayerFish) {
-			return !hitFish(entity);
-		}
-
-		return true;
+		return new Vector3f();
 
 	}
 
