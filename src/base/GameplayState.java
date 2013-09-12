@@ -79,7 +79,7 @@ public class GameplayState extends BasicGameState {
 
 	private void renderUI(GameContainer container, StateBasedGame game,
 			Graphics g) {
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		g.drawString("Score: " + Integer.toString(score), 400, 10);
 
 		int timeLeft = timeLimit - timeRan;

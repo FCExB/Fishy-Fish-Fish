@@ -19,7 +19,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import util.Assets;
 import util.AudioManager;
 
 public class World {
@@ -65,7 +64,7 @@ public class World {
 		waterSideVecs.add(new Vector3f(820, -600, 0));
 		waterSideVecs.add(new Vector3f(0, -600, 0));
 
-		waterSide = new ThreeDShape(waterSideVecs, new Color(0, 0, 150, 100));
+		waterSide = new ThreeDShape(waterSideVecs, new Color(0, 0, 50, 100));
 
 		smallWaterTop = new WaterSurface(new Vector3f(970, 0, 0), 30,
 				waterDepth, 3, waterNumPointsDeep);
@@ -76,7 +75,7 @@ public class World {
 		smallWaterSideVecs.add(new Vector3f(970, -600, 0));
 
 		smallWaterSide = new ThreeDShape(smallWaterSideVecs, new Color(0, 0,
-				150, 100));
+				50, 100));
 
 		List<Vector3f> jettyFrontVecs = new ArrayList<Vector3f>();
 
@@ -136,7 +135,8 @@ public class World {
 	}
 
 	public void render(Camera camera, Graphics g) {
-		Assets.WATER_SKY_BACKGROUND.draw(0, 0);
+		// Assets.WATER_SKY_BACKGROUND.draw(0, 0);
+
 		smallWaterTop.render(camera, g, new TreeSet<Fish>());
 		smallWaterSide.render(camera, g);
 
