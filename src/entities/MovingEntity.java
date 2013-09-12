@@ -81,7 +81,7 @@ public abstract class MovingEntity extends Entity {
 
 		if (world.hitFish(this)) {
 			position = oldPosition;
-			// velocity = new Vector3f();
+			velocity.scale(0.8f);
 		}
 	}
 
