@@ -29,7 +29,7 @@ public class World {
 
 	private final Vector3f playerResetPosition = new Vector3f(400, -20, -200);
 
-	private final int waterWidth = 800;
+	private final int waterWidth = 820;
 	private final int waterDepth = 400;
 	private final int waterNumPointsWide = 32;
 	private final int waterNumPointsDeep = 16;
@@ -57,29 +57,31 @@ public class World {
 
 		List<Vector3f> waterSideVecs = waterTop.getFrontRow();
 
-		waterSideVecs.add(new Vector3f(800, -600, 0));
+		waterSideVecs.add(new Vector3f(820, -600, 0));
 		waterSideVecs.add(new Vector3f(0, -600, 0));
 
 		waterSide = new ThreeDShape(waterSideVecs, new Color(0, 0, 150, 100));
 
 		List<Vector3f> jettyFrontVecs = new ArrayList<Vector3f>();
 
-		jettyFrontVecs.add(new Vector3f(800, 50, -100));
+		jettyFrontVecs.add(new Vector3f(820, 50, -100));
 		jettyFrontVecs.add(new Vector3f(1000, 50, -100));
 		jettyFrontVecs.add(new Vector3f(1000, -600, -100));
-		jettyFrontVecs.add(new Vector3f(800, -600, -100));
+		jettyFrontVecs.add(new Vector3f(820, -600, -100));
 
 		jettyFront = new ThreeDShape(jettyFrontVecs, new Color(0.9f, 0f, 0f,
-				0.9f));
+				0.95f));
 
 		List<Vector3f> jettyTopVecs = new ArrayList<Vector3f>();
 
-		jettyTopVecs.add(new Vector3f(800, 50, -100));
-		jettyTopVecs.add(new Vector3f(1000, 50, -100));
-		jettyTopVecs.add(new Vector3f(1000, 50, -300));
 		jettyTopVecs.add(new Vector3f(800, 50, -300));
+		jettyTopVecs.add(new Vector3f(1000, 50, -300));
+		jettyTopVecs.add(new Vector3f(1000, 50, -100));
+		jettyTopVecs.add(new Vector3f(1000, 20, -100));
+		jettyTopVecs.add(new Vector3f(800, 20, -100));
+		jettyTopVecs.add(new Vector3f(800, 50, -100));
 
-		jettyTop = new ThreeDShape(jettyTopVecs, new Color(0.4f, 0f, 0f, 0.8f));
+		jettyTop = new ThreeDShape(jettyTopVecs, new Color(0.4f, 0f, 0f, 0.9f));
 
 		List<Vector3f> bucketFrontVecs = new ArrayList<Vector3f>();
 
@@ -110,10 +112,10 @@ public class World {
 	public void render(Camera camera, Graphics g) {
 		Assets.WATER_SKY_BACKGROUND.draw(0, 0);
 
-		jettyFront.render(camera, g);
-		jettyTop.render(camera, g);
 		waterTop.render(camera, g, new TreeSet<Fish>(fish));
 		waterSide.render(camera, g);
+		jettyFront.render(camera, g);
+		jettyTop.render(camera, g);
 		bucketFront.render(camera, g);
 	}
 
@@ -155,7 +157,7 @@ public class World {
 			return new Vector3f(1, 0, 0);
 		}
 
-		if (entity.greatestX() > 800 && entity.smallestY() < 50) {
+		if (entity.greatestX() > 820 && entity.smallestY() < 50) {
 			return new Vector3f(1, 0, 0);
 		}
 
