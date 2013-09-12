@@ -20,6 +20,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import util.Assets;
+import util.AudioManager;
 
 public class World {
 
@@ -186,9 +187,9 @@ public class World {
 
 		waterTop.reset();
 
-		// for (int i = 0; i < 10; i++) {
-		// fish.add(new AIFish(this));
-		// }
+		 for (int i = 0; i < 10; i++) {
+		 fish.add(new AIFish(this));
+		 }
 	}
 
 	public Color filterAtLocation(Vector3f location) {
@@ -201,6 +202,8 @@ public class World {
 
 	public void crossWaterLevel(Vector3f position, float fishScale,
 			float verticalSpeed) {
+		AudioManager.playSound(position.x, position.y, position.z,
+				AudioManager.SPLASH);
 		waterTop.crossWaterLevel(position, fishScale, verticalSpeed);
 	}
 

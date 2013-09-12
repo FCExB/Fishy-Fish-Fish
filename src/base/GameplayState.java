@@ -9,6 +9,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import util.Assets;
+import util.AudioManager;
 
 public class GameplayState extends BasicGameState {
 
@@ -30,6 +31,7 @@ public class GameplayState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		new Assets();
+		AudioManager.initAudioManager();
 		world = new World(this);
 	}
 

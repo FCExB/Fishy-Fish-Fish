@@ -1,8 +1,7 @@
 package util;
 
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -11,6 +10,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class AudioManager {
 
@@ -82,15 +82,10 @@ public class AudioManager {
 		if (AL10.alGetError() != AL10.AL_NO_ERROR)
 			return AL10.AL_FALSE;
 
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream("data/LASER.WAV");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return AL10.AL_FALSE;
-		}
+		InputStream is = null;
+		is = ResourceLoader.getResourceAsStream("data/SPLASH.wav");
 
-		WaveData waveFile = WaveData.create(new BufferedInputStream(fis));
+		WaveData waveFile = WaveData.create(new BufferedInputStream(is));
 		AL10.alBufferData(buffer.get(SPLASH), waveFile.format, waveFile.data,
 				waveFile.samplerate);
 		waveFile.dispose();
@@ -132,7 +127,7 @@ public class AudioManager {
 
 	private final static double SOUND_VARIATION = 0.2;
 
-	public static void playSound(double x, double y, int sound) {
+	public static void playSound(double x, double y, double z, int sound) {
 
 		for (int i = 0; i < NUM_SPLASH_SOURCES; i++) {
 			int state = AL10.alGetSourcei(sources.get(i), AL10.AL_SOURCE_STATE);
@@ -140,6 +135,7 @@ public class AudioManager {
 			if (state != AL10.AL_PLAYING) {
 				sourcePos.put(i * 3 + 0, (float) (x * SOUND_VARIATION));
 				sourcePos.put(i * 3 + 1, (float) (y * SOUND_VARIATION));
+				sourcePos.put(i * 3 + 1, (float) (z * SOUND_VARIATION));
 
 				AL10.alSource(sources.get(i), AL10.AL_POSITION,
 						(FloatBuffer) sourcePos.position(i * 3));
@@ -151,9 +147,10 @@ public class AudioManager {
 		}
 	}
 
-	public static void updateListenerPosition(double x, double y) {
+	public static void updateListenerPosition(double x, double y, double z) {
 		listenerPos.put(0, (float) (x * SOUND_VARIATION));
 		listenerPos.put(1, (float) (y * SOUND_VARIATION));
+		listenerPos.put(2, (float) (z * SOUND_VARIATION));
 
 		AL10.alListener(AL10.AL_POSITION, listenerPos);
 	}

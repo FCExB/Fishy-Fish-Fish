@@ -20,6 +20,7 @@ public abstract class Fish extends MovingEntity {
 		// position, velocity, world);
 		super(image, defaultScale, 16, position, velocity, world);
 		this.maxSpeed = maxSpeed;
+		lastPos = position;
 	}
 
 	@Override
@@ -27,10 +28,14 @@ public abstract class Fish extends MovingEntity {
 
 	}
 
-	private Vector3f lastPos = new Vector3f();
+	private Vector3f lastPos;
+
+	protected abstract void doSomething();
 
 	@Override
 	protected void act(int deltaT, GameContainer gc) {
+		doSomething();
+
 		boolean inWaterLast = world.inWater(lastPos);
 		boolean inWaterNow = world.inWater(position);
 

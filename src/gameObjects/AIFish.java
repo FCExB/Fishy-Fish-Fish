@@ -48,4 +48,10 @@ public class AIFish extends Fish {
 
 	}
 
+	@Override
+	protected void doSomething() {
+		// TODO Auto-generated method stub
+
+	}
+
 }
