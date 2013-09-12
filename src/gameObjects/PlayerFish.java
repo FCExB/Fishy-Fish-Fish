@@ -10,29 +10,32 @@ import base.World;
 public class PlayerFish extends Fish {
 
 	public PlayerFish(Vector3f position, Vector3f velocity, World world) {
-		super(Assets.FISH_STILL, 1.2f, position, velocity, world);
+		super(Assets.FISH_STILL, 1.2f, position, velocity, 15.5f, world);
 	}
+
+	Vector3f result = new Vector3f();
 
 	@Override
 	protected Vector3f getAccelerationDirection(GameContainer gc) {
-		Vector3f result = new Vector3f();
+
+		result.scale(0);
 
 		Input input = gc.getInput();
 
 		if (input.isKeyDown(Input.KEY_W)) {
-			Vector3f.add(result, new Vector3f(0, 1, 0), result);
+			result.y += 1;
 		}
 
 		if (input.isKeyDown(Input.KEY_S)) {
-			Vector3f.add(result, new Vector3f(0, -1, 0), result);
+			result.y -= 1;
 		}
 
 		if (input.isKeyDown(Input.KEY_A)) {
-			Vector3f.add(result, new Vector3f(-1, 0, 0), result);
+			result.x -= 1;
 		}
 
 		if (input.isKeyDown(Input.KEY_D)) {
-			Vector3f.add(result, new Vector3f(1, 0, 0), result);
+			result.x += 1;
 		}
 
 		return result;

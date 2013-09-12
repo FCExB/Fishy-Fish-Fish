@@ -170,22 +170,22 @@ public abstract class Entity implements Comparable<Entity> {
 					&& this.smallestX() < that.greatestX()) {
 				// There is an X overlap
 
-				if (this.greatestZ() > that.smallestZ()
-						&& this.greatestZ() < that.greatestZ()
-						|| this.smallestZ() > that.smallestZ()
-						&& this.smallestZ() < that.greatestZ()) {
-					// There is a Z overlap
+				// if (this.greatestZ() > that.smallestZ()
+				// && this.greatestZ() < that.greatestZ()
+				// || this.smallestZ() > that.smallestZ()
+				// && this.smallestZ() < that.greatestZ()) {
+				// There is a Z overlap
 
-					if (this.greatestY() > that.smallestY()
-							&& this.greatestY() < that.greatestY()
-							|| this.smallestY() > that.smallestY()
-							&& this.smallestY() < that.greatestY()) {
-						// There is a y overlap
+				if (this.greatestY() > that.smallestY()
+						&& this.greatestY() < that.greatestY()
+						|| this.smallestY() > that.smallestY()
+						&& this.smallestY() < that.greatestY()) {
+					// There is a y overlap
 
-						return true;
-					}
-
+					return true;
 				}
+
+				// }
 			}
 		}
 
