@@ -96,4 +96,16 @@ public abstract class Fish extends MovingEntity {
 		}
 	}
 
+	public boolean shouldReset() {
+		if (position.x > 800 && position.y < 80) {
+			return true;
+		}
+
+		if (position.y < -400) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

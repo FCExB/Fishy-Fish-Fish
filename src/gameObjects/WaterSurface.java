@@ -197,6 +197,13 @@ public class WaterSurface {
 
 	public void render(Camera camera, Graphics g, SortedSet<Fish> fish) {
 
+		if (fish.size() == 0) {
+			for (ThreeDShape s : polys) {
+				s.render(camera, g);
+			}
+			return;
+		}
+
 		Iterator<Fish> theFish = fish.iterator();
 		Iterator<ThreeDShape> theShapes = polys.iterator();
 
