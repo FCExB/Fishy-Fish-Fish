@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
 import util.Assets;
-import util.AudioManager;
 import base.World;
 
 public class PlayerFish extends Fish {
@@ -44,8 +43,6 @@ public class PlayerFish extends Fish {
 
 	@Override
 	protected void doSomething() {
-		Vector3f position = getPosition();
 
-		AudioManager.updateListenerPosition(position.x, position.y, position.z);
 	}
 }

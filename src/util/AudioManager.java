@@ -59,8 +59,10 @@ public class AudioManager {
 		setListenerValues();
 	}
 
+	private final static float volumeScaler = 10;
+
 	private static void setListenerValues() {
-		listenerPos.put(new float[] { 0.0f, 0.0f, 15f });
+		listenerPos.put(new float[] { 0.0f, 0.0f, 15.0f });
 		listenerVel.put(new float[] { 0.0f, 0.0f, 0.0f });
 
 		// First 3 = lookingAt, Second 3 = up
@@ -133,9 +135,12 @@ public class AudioManager {
 			int state = AL10.alGetSourcei(sources.get(i), AL10.AL_SOURCE_STATE);
 
 			if (state != AL10.AL_PLAYING) {
-				sourcePos.put(i * 3 + 0, (float) (x * SOUND_VARIATION));
-				sourcePos.put(i * 3 + 1, (float) (y * SOUND_VARIATION));
-				sourcePos.put(i * 3 + 1, (float) (z * SOUND_VARIATION));
+				sourcePos.put(i * 3 + 0,
+						(float) (((x - 400) / volumeScaler) * SOUND_VARIATION));
+				sourcePos.put(i * 3 + 1,
+						(float) ((y / volumeScaler) * SOUND_VARIATION));
+				sourcePos.put(i * 3 + 1,
+						(float) ((z / volumeScaler) * SOUND_VARIATION));
 
 				AL10.alSource(sources.get(i), AL10.AL_POSITION,
 						(FloatBuffer) sourcePos.position(i * 3));
@@ -147,10 +152,9 @@ public class AudioManager {
 		}
 	}
 
-	public static void updateListenerPosition(double x, double y, double z) {
+	public static void updateListenerPosition(double x, double y) {
 		listenerPos.put(0, (float) (x * SOUND_VARIATION));
 		listenerPos.put(1, (float) (y * SOUND_VARIATION));
-		listenerPos.put(2, (float) (z * SOUND_VARIATION));
 
 		AL10.alListener(AL10.AL_POSITION, listenerPos);
 	}
