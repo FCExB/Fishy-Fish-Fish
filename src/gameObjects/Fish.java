@@ -101,7 +101,7 @@ public abstract class Fish extends MovingEntity {
 			return true;
 		}
 
-		if (position.y < -400) {
+		if (position.y < -400 || position.x < 50) {
 			return true;
 		}
 

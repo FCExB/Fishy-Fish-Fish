@@ -29,9 +29,9 @@ public class World {
 
 	private final Vector3f playerResetPosition = new Vector3f(400, -20, -200);
 
-	private final int waterWidth = 820;
+	private final int waterWidth = 920;
 	private final int waterDepth = 400;
-	private final int waterNumPointsWide = 32;
+	private final int waterNumPointsWide = 38;
 	private final int waterNumPointsDeep = 16;
 
 	private final WaterSurface waterTop;
@@ -56,7 +56,7 @@ public class World {
 
 		fish = new HashSet<Fish>();
 
-		waterTop = new WaterSurface(new Vector3f(0, 0, 0), waterWidth,
+		waterTop = new WaterSurface(new Vector3f(-100, 0, 0), waterWidth,
 				waterDepth, waterNumPointsWide, waterNumPointsDeep);
 
 		List<Vector3f> waterSideVecs = waterTop.getFrontRow();
@@ -66,8 +66,8 @@ public class World {
 
 		waterSide = new ThreeDShape(waterSideVecs, new Color(0, 0, 50, 100));
 
-		smallWaterTop = new WaterSurface(new Vector3f(970, 0, 0), 30,
-				waterDepth, 3, waterNumPointsDeep);
+		smallWaterTop = new WaterSurface(new Vector3f(970, 0, 0), 130,
+				waterDepth, 6, waterNumPointsDeep);
 
 		List<Vector3f> smallWaterSideVecs = smallWaterTop.getFrontRow();
 
@@ -193,10 +193,6 @@ public class World {
 	}
 
 	public Vector3f hitBoundry(Entity entity) {
-
-		if (entity.smallestX() < 0) {
-			return new Vector3f(1, 0, 0);
-		}
 
 		if (entity.greatestX() > 820 && entity.smallestY() < 50) {
 			return new Vector3f(1, 0, 0);

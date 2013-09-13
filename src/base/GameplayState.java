@@ -21,7 +21,7 @@ public class GameplayState extends BasicGameState {
 	public static int score = 0;
 	private int timeRan = 0;
 
-	private final int timeLimit = 60 * 1000;
+	private final int timeLimit = 90 * 1000;
 
 	public GameplayState(int stateID) throws SlickException {
 		this.stateID = stateID;
@@ -45,6 +45,7 @@ public class GameplayState extends BasicGameState {
 		}
 
 		world.update(container, delta);
+		camera.update(container, delta, score);
 
 		actOnInput(container, game);
 	}
