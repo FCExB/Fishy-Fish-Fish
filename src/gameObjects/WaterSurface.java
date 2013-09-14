@@ -14,7 +14,7 @@ import org.newdawn.slick.Graphics;
 import base.Camera;
 
 public class WaterSurface {
-	private static final int UPDATE_FREQUENCY = 100;
+	private static final int UPDATE_FREQUENCY = 150;
 
 	private static final float SHIMMER_CHANCE = 0.4f;
 	private static final float SHIMMER_RANGE = 0.6f;

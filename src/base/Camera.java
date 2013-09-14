@@ -61,14 +61,14 @@ public class Camera {
 	}
 
 	private static final float MAX_ANGLE = 13f;
-	private static final float MIN_ANGLE = 1f;
+	private static final float MIN_ANGLE = 0.4f;
 
 	private final float defaultX;
 	private final float defaultY;
 
-	private static final float xRange = 50;
+	private static final float xRange = 45;
 
-	private static final float yRange = 50;
+	private static final float yRange = 45;
 
 	private float nextX;
 	private float nextY;
