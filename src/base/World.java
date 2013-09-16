@@ -27,7 +27,8 @@ public class World {
 
 	private final GameplayState state;
 
-	private final Vector3f playerResetPosition = new Vector3f(-300, -20, -200);
+	private final Vector3f playerResetPosition1 = new Vector3f(-300, -20, -200);
+	private final Vector3f playerResetPosition2 = new Vector3f(300, -20, -200);
 
 	private final int waterWidth = 1200;
 	private final int waterDepth = 400;
@@ -45,7 +46,7 @@ public class World {
 	// private final ThreeDShape jettyFront;
 	private final ThreeDShape bucketFront;
 
-	private PlayerFish player = new PlayerFish(playerResetPosition,
+	private PlayerFish player = new PlayerFish(playerResetPosition1,
 			new Vector3f(), this);
 
 	private final Set<Fish> fish;
@@ -222,7 +223,13 @@ public class World {
 	public void resetPlayer() {
 		if (player.shouldReset()) {
 			fish.remove(player);
-			player = new PlayerFish(playerResetPosition, new Vector3f(), this);
+			if (Math.random() > 0.5) {
+				player = new PlayerFish(playerResetPosition1, new Vector3f(),
+						this);
+			} else {
+				player = new PlayerFish(playerResetPosition2, new Vector3f(),
+						this);
+			}
 			fish.add(player);
 		}
 	}
@@ -230,7 +237,11 @@ public class World {
 	public void resetAll() {
 		fish.clear();
 
-		player = new PlayerFish(playerResetPosition, new Vector3f(), this);
+		if (Math.random() > 0.5) {
+			player = new PlayerFish(playerResetPosition1, new Vector3f(), this);
+		} else {
+			player = new PlayerFish(playerResetPosition2, new Vector3f(), this);
+		}
 		fish.add(player);
 
 		waterTop.reset();
