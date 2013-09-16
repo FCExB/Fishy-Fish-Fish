@@ -18,10 +18,10 @@ public class BackgroundBlob extends ThreeDShape {
 
 	private final List<Vector3f> defaultVecs;
 
-	private final Random rand = new Random();
+	private static final Random rand = new Random();
 
-	public BackgroundBlob(List<Vector3f> vecs, Color color) {
-		super(vecs, color);
+	public BackgroundBlob(List<Vector3f> vecs) {
+		super(vecs, randomColor());
 
 		defaultVecs = new ArrayList<Vector3f>();
 
@@ -51,9 +51,9 @@ public class BackgroundBlob extends ThreeDShape {
 	}
 
 	public void update(int delta, int score) {
+		score += 1;
 		updatePosition(delta, score);
 		updateColor(delta, score);
-
 	}
 
 	private static final float speed = 0.1f;
@@ -83,7 +83,8 @@ public class BackgroundBlob extends ThreeDShape {
 
 	private static float colorFadeSpeed = 0.001f;
 
-	private static final float maxA = 0.4f;
+	private static final float maxA = 0.5f;
+	private static final float colorMax = 0.7f;
 
 	private void updateColor(int delta, int score) {
 
@@ -92,19 +93,19 @@ public class BackgroundBlob extends ThreeDShape {
 		color.b += bFade * colorFadeSpeed * delta * ((float) score / 10);
 		color.a += aFade * colorFadeSpeed * delta * ((float) score / 10);
 
-		if (color.r > 1 || color.r < 0) {
+		if (color.r > colorMax || color.r < 0) {
 			rFade = rand.nextFloat() * -Math.signum(rFade);
 		}
 
-		if (color.g > 1 || color.g < 0) {
+		if (color.g > colorMax || color.g < 0) {
 			gFade = rand.nextFloat() * -Math.signum(gFade);
 		}
 
-		if (color.b > 1 || color.b < 0) {
+		if (color.b > colorMax || color.b < 0) {
 			bFade = rand.nextFloat() * -Math.signum(bFade);
 		}
 
-		if (color.a > maxA || color.a < 0.2) {
+		if (color.a > maxA || color.a < 0.1) {
 			aFade = rand.nextFloat() * -Math.signum(aFade);
 		}
 	}
@@ -116,5 +117,11 @@ public class BackgroundBlob extends ThreeDShape {
 		}
 
 		super.render(camera, g);
+	}
+
+	private static Color randomColor() {
+		return new Color(rand.nextFloat() * colorMax, rand.nextFloat()
+				* colorMax, rand.nextFloat() * colorMax, rand.nextFloat()
+				* maxA);
 	}
 }

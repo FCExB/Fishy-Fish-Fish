@@ -2,10 +2,8 @@ package gameObjects;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import base.Camera;
@@ -24,7 +22,7 @@ public class BackgroundEffects {
 			vectors.add(new Vector3f(10, -10, 0));
 			vectors.add(new Vector3f(-10, -10, 0));
 
-			blobs.add(new BackgroundBlob(vectors, randomColor()));
+			blobs.add(new BackgroundBlob(vectors));
 		}
 	}
 
@@ -40,10 +38,4 @@ public class BackgroundEffects {
 		}
 	}
 
-	private final Random rand = new Random();
-
-	private Color randomColor() {
-		return new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(),
-				rand.nextFloat() * 0.4f);
-	}
 }
