@@ -23,9 +23,10 @@ public class GameplayState extends BasicGameState {
 	private BackgroundEffects background = new BackgroundEffects();
 
 	public static int score = 0;
-	private int timeRan = 0;
 
-	private final int timeLimit = 90 * 1000;
+	// private int timeRan = 0;
+
+	// private final int timeLimit = 90 * 1000;
 
 	public GameplayState(int stateID) throws SlickException {
 		this.stateID = stateID;
@@ -42,9 +43,10 @@ public class GameplayState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		timeRan += delta;
+		// timeRan += delta;
+		//
 
-		if (timeRan > timeLimit || world.playerHitFish()) {
+		if (world.playerHitFish()) {
 			game.enterState(FishGame.GAMEOVER_STATE);
 		}
 
@@ -87,11 +89,11 @@ public class GameplayState extends BasicGameState {
 		g.setColor(Color.white);
 		g.drawString("Score: " + Integer.toString(score), 400, 10);
 
-		int timeLeft = timeLimit - timeRan;
-		int seconds = Math.max(timeLeft / 1000, 0);
-		int milliseconds = Math.max(timeLeft % 1000, 0);
-
-		g.drawString("Time left: " + seconds + "." + milliseconds, 400, 30);
+		// int timeLeft = timeLimit - timeRan;
+		// int seconds = Math.max(timeLeft / 1000, 0);
+		// int milliseconds = Math.max(timeLeft % 1000, 0);
+		//
+		// g.drawString("Time left: " + seconds + "." + milliseconds, 400, 30);
 	}
 
 	@Override
@@ -103,7 +105,7 @@ public class GameplayState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		score = 0;
-		timeRan = 0;
+		// timeRan = 0;
 		world.resetAll();
 		background = new BackgroundEffects();
 	}

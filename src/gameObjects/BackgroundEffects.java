@@ -14,7 +14,7 @@ public class BackgroundEffects {
 
 	public BackgroundEffects() {
 
-		for (int j = 0; j < 100; j++) {
+		for (int j = 0; j < 150; j++) {
 			List<Vector3f> vectors = new ArrayList<Vector3f>();
 
 			vectors.add(new Vector3f(-10, 10, 0));
