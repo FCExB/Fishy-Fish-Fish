@@ -109,9 +109,12 @@ public class World {
 
 		if (position.x > -20 && position.x < 20 && position.y < 80
 				&& position.y > 50) {
-			fish.add(new AIFish(this));
 			state.fishLandsInBucket();
 		}
+	}
+
+	public void addAIFish() {
+		fish.add(new AIFish(this));
 	}
 
 	public void render(Camera camera, Graphics g) {

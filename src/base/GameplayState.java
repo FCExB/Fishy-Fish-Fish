@@ -70,7 +70,11 @@ public class GameplayState extends BasicGameState {
 	}
 
 	public void fishLandsInBucket() {
+
 		score++;
+		if (score % 2 == 1) {
+			world.addAIFish();
+		}
 		world.resetPlayer();
 	}
 

@@ -1,5 +1,7 @@
 package base;
 
+import gameObjects.BackgroundEffects;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,6 +13,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MainMenuState extends BasicGameState {
 
 	private final int stateID;
+	private final Camera camera = new Camera(0, 0);
+
+	private BackgroundEffects background = new BackgroundEffects();
 
 	public MainMenuState(int stateID) {
 		this.stateID = stateID;
@@ -26,6 +31,8 @@ public class MainMenuState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
+		background.render(camera, g);
+
 		g.setColor(Color.white);
 
 		g.drawString("Here, Fishy Fish Fish!", 400, 200);
@@ -40,11 +47,19 @@ public class MainMenuState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			game.enterState(FishGame.GAMEPLAY_STATE);
 		}
+
+		background.update(delta, 0);
 	}
 
 	@Override
 	public int getID() {
 		return stateID;
+	}
+
+	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		background = new BackgroundEffects();
 	}
 
 }
