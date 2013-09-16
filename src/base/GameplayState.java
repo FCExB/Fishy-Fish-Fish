@@ -15,7 +15,7 @@ public class GameplayState extends BasicGameState {
 
 	private final int stateID;
 
-	private final Camera camera = new Camera(500, 0);
+	private final Camera camera = new Camera(0, 0);
 	private World world;
 
 	public static int score = 0;

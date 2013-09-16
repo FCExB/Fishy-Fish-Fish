@@ -11,6 +11,8 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import entities.Fish;
+
 import base.Camera;
 
 public class WaterSurface {

@@ -1,12 +1,10 @@
-package gameObjects;
+package entities;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 
 import base.World;
-import entities.Entity;
-import entities.MovingEntity;
 
 public abstract class Fish extends MovingEntity {
 

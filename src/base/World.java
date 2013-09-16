@@ -1,9 +1,9 @@
 package base;
 
+import entities.AIFish;
 import entities.Entity;
-import gameObjects.AIFish;
-import gameObjects.Fish;
-import gameObjects.PlayerFish;
+import entities.Fish;
+import entities.PlayerFish;
 import gameObjects.ThreeDShape;
 import gameObjects.WaterSurface;
 
@@ -27,22 +27,22 @@ public class World {
 
 	private final GameplayState state;
 
-	private final Vector3f playerResetPosition = new Vector3f(400, -20, -200);
+	private final Vector3f playerResetPosition = new Vector3f(-300, -20, -200);
 
-	private final int waterWidth = 920;
+	private final int waterWidth = 1200;
 	private final int waterDepth = 400;
-	private final int waterNumPointsWide = 38;
-	private final int waterNumPointsDeep = 16;
+	private final int waterNumPointsWide = 45;
+	private final int waterNumPointsDeep = 15;
 
 	private final WaterSurface waterTop;
 	private final ThreeDShape waterSide;
 
-	private final WaterSurface smallWaterTop;
-	private final ThreeDShape smallWaterSide;
+	// private final WaterSurface smallWaterTop;
+	// private final ThreeDShape smallWaterSide;
 
 	private final ThreeDShape jettyTopTop;
 	private final ThreeDShape jettyTopSide;
-	private final ThreeDShape jettyFront;
+	// private final ThreeDShape jettyFront;
 	private final ThreeDShape bucketFront;
 
 	private PlayerFish player = new PlayerFish(playerResetPosition,
@@ -56,63 +56,63 @@ public class World {
 
 		fish = new HashSet<Fish>();
 
-		waterTop = new WaterSurface(new Vector3f(-100, 0, 0), waterWidth,
+		waterTop = new WaterSurface(new Vector3f(-600, 0, 0), waterWidth,
 				waterDepth, waterNumPointsWide, waterNumPointsDeep);
 
 		List<Vector3f> waterSideVecs = waterTop.getFrontRow();
 
-		waterSideVecs.add(new Vector3f(820, -600, 0));
-		waterSideVecs.add(new Vector3f(0, -600, 0));
+		waterSideVecs.add(new Vector3f(600, -400, 0));
+		waterSideVecs.add(new Vector3f(-600, -400, 0));
 
 		waterSide = new ThreeDShape(waterSideVecs, new Color(0, 0, 50, 100));
 
-		smallWaterTop = new WaterSurface(new Vector3f(970, 0, 0), 130,
-				waterDepth, 6, waterNumPointsDeep);
+		// smallWaterTop = new WaterSurface(new Vector3f(970, 0, 0), 130,
+		// waterDepth, 6, waterNumPointsDeep);
+		//
+		// List<Vector3f> smallWaterSideVecs = smallWaterTop.getFrontRow();
+		//
+		// smallWaterSideVecs.add(new Vector3f(1000, -600, 0));
+		// smallWaterSideVecs.add(new Vector3f(970, -600, 0));
+		//
+		// smallWaterSide = new ThreeDShape(smallWaterSideVecs, new Color(0, 0,
+		// 50, 100));
 
-		List<Vector3f> smallWaterSideVecs = smallWaterTop.getFrontRow();
-
-		smallWaterSideVecs.add(new Vector3f(1000, -600, 0));
-		smallWaterSideVecs.add(new Vector3f(970, -600, 0));
-
-		smallWaterSide = new ThreeDShape(smallWaterSideVecs, new Color(0, 0,
-				50, 100));
-
-		List<Vector3f> jettyFrontVecs = new ArrayList<Vector3f>();
-
-		jettyFrontVecs.add(new Vector3f(820, 50, -100));
-		jettyFrontVecs.add(new Vector3f(970, 50, -100));
-		jettyFrontVecs.add(new Vector3f(970, -600, -100));
-		jettyFrontVecs.add(new Vector3f(820, -600, -100));
-
-		jettyFront = new ThreeDShape(jettyFrontVecs, new Color(0.9f, 0f, 0f,
-				0.95f));
+		// List<Vector3f> jettyFrontVecs = new ArrayList<Vector3f>();
+		//
+		// jettyFrontVecs.add(new Vector3f(820, 50, -100));
+		// jettyFrontVecs.add(new Vector3f(970, 50, -100));
+		// jettyFrontVecs.add(new Vector3f(970, -600, -100));
+		// jettyFrontVecs.add(new Vector3f(820, -600, -100));
+		//
+		// jettyFront = new ThreeDShape(jettyFrontVecs, new Color(0.9f, 0f, 0f,
+		// 0.95f));
 
 		List<Vector3f> jettyTopTopVecs = new ArrayList<Vector3f>();
 
-		jettyTopTopVecs.add(new Vector3f(800, 50, -300));
-		jettyTopTopVecs.add(new Vector3f(990, 50, -300));
-		jettyTopTopVecs.add(new Vector3f(990, 50, -100));
-		jettyTopTopVecs.add(new Vector3f(800, 50, -100));
+		jettyTopTopVecs.add(new Vector3f(-95, 50, -300));
+		jettyTopTopVecs.add(new Vector3f(95, 50, -300));
+		jettyTopTopVecs.add(new Vector3f(95, 50, -100));
+		jettyTopTopVecs.add(new Vector3f(-95, 50, -100));
 
 		jettyTopTop = new ThreeDShape(jettyTopTopVecs, new Color(0.3f, 0f, 0f,
 				1f));
 
 		List<Vector3f> jettyTopSideVecs = new ArrayList<Vector3f>();
 
-		jettyTopSideVecs.add(new Vector3f(800, 50, -100));
-		jettyTopSideVecs.add(new Vector3f(990, 50, -100));
-		jettyTopSideVecs.add(new Vector3f(990, 20, -100));
-		jettyTopSideVecs.add(new Vector3f(800, 20, -100));
+		jettyTopSideVecs.add(new Vector3f(-95, 50, -100));
+		jettyTopSideVecs.add(new Vector3f(95, 50, -100));
+		jettyTopSideVecs.add(new Vector3f(95, 20, -100));
+		jettyTopSideVecs.add(new Vector3f(-95, 20, -100));
 
 		jettyTopSide = new ThreeDShape(jettyTopSideVecs, new Color(0.5f, 0f,
 				0f, 1f));
 
 		List<Vector3f> bucketFrontVecs = new ArrayList<Vector3f>();
 
-		bucketFrontVecs.add(new Vector3f(875, 50, -150));
-		bucketFrontVecs.add(new Vector3f(915, 50, -150));
-		bucketFrontVecs.add(new Vector3f(925, 100, -150));
-		bucketFrontVecs.add(new Vector3f(865, 100, -150));
+		bucketFrontVecs.add(new Vector3f(-20, 50, -150));
+		bucketFrontVecs.add(new Vector3f(20, 50, -150));
+		bucketFrontVecs.add(new Vector3f(30, 100, -150));
+		bucketFrontVecs.add(new Vector3f(-30, 100, -150));
 
 		bucketFront = new ThreeDShape(bucketFrontVecs, new Color(0f, 0.6f, 0f,
 				0.8f));
@@ -120,7 +120,7 @@ public class World {
 
 	public void update(GameContainer container, int delta) {
 		waterTop.updatePoints(delta);
-		smallWaterTop.updatePoints(delta);
+		// smallWaterTop.updatePoints(delta);
 
 		for (Fish f : fish) {
 			f.update(delta, container);
@@ -128,7 +128,8 @@ public class World {
 
 		Vector3f position = player.getPosition();
 
-		if (position.x > 870 && position.x < 920 && position.y < 80) {
+		if (position.x > -15 && position.x < 15 && position.y < 80
+				&& position.y > 50) {
 			state.fishLandsInBucket();
 			fish.add(new AIFish(this));
 		}
@@ -137,12 +138,12 @@ public class World {
 	public void render(Camera camera, Graphics g) {
 		// Assets.WATER_SKY_BACKGROUND.draw(0, 0);
 
-		smallWaterTop.render(camera, g, new TreeSet<Fish>());
-		smallWaterSide.render(camera, g);
+		// smallWaterTop.render(camera, g, new TreeSet<Fish>());
+		// smallWaterSide.render(camera, g);
 
 		if (inWater(player.getPosition())) {
 			waterTop.render(camera, g, new TreeSet<Fish>(fish));
-			jettyFront.render(camera, g);
+			// jettyFront.render(camera, g);
 			jettyTopTop.render(camera, g);
 			jettyTopSide.render(camera, g);
 			waterSide.render(camera, g);
@@ -150,7 +151,7 @@ public class World {
 		} else {
 			fish.remove(player);
 			waterTop.render(camera, g, new TreeSet<Fish>(fish));
-			jettyFront.render(camera, g);
+			// jettyFront.render(camera, g);
 			jettyTopTop.render(camera, g);
 			jettyTopSide.render(camera, g);
 			waterSide.render(camera, g);
@@ -176,17 +177,17 @@ public class World {
 
 	public boolean positionClear(Vector3f position) {
 
-		if (position.z < -450) {
+		if (position.z < -350) {
 			return false;
 		}
 
 		if (position.z > -50)
 			return false;
 
-		if (position.x < 50)
+		if (position.x < -500)
 			return false;
 
-		if (position.x > 750)
+		if (position.x > 500)
 			return false;
 
 		return true;
@@ -194,9 +195,9 @@ public class World {
 
 	public Vector3f hitBoundry(Entity entity) {
 
-		if (entity.greatestX() > 820 && entity.smallestY() < 50) {
-			return new Vector3f(1, 0, 0);
-		}
+		// if (entity.greatestX() > 820 && entity.smallestY() < 50) {
+		// return new Vector3f(1, 0, 0);
+		// }
 
 		if (entity.smallestZ() < -400) {
 			return new Vector3f(0, 0, 1);

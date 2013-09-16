@@ -1,4 +1,4 @@
-package gameObjects;
+package entities;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.GameContainer;

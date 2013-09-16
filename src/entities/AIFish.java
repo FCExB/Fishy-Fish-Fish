@@ -1,4 +1,4 @@
-package gameObjects;
+package entities;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class AIFish extends Fish {
 	}
 
 	private void selectNextPoint() {
-		nextPoint = new Vector3f(rand.nextFloat() * world.getWidth(),
+		nextPoint = new Vector3f((rand.nextFloat() - 0.5f) * world.getWidth(),
 				rand.nextFloat() * -lowestHeight, -rand.nextFloat()
 						* world.getDepth());
 
