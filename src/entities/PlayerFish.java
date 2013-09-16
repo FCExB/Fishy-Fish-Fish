@@ -9,8 +9,11 @@ import base.World;
 
 public class PlayerFish extends Fish {
 
-	public PlayerFish(Vector3f position, Vector3f velocity, World world) {
-		super(Assets.FISH_STILL, 1.2f, position, velocity, 15.5f, 0.04f, world);
+	public PlayerFish(Vector3f velocity, World world) {
+		super(Assets.FISH_STILL, 1.2f, world.getRandomClearPosition(),
+				velocity, 15.5f, 0.04f, world);
+
+		position.z = -200;
 	}
 
 	Vector3f result = new Vector3f();

@@ -17,22 +17,14 @@ public class AIFish extends Fish {
 	private Vector3f nextPoint;
 
 	public AIFish(World world) {
-		super(Assets.FISH_STILL2, 2.1f, new Vector3f(rand.nextInt(world
-				.getWidth() - 100) + 50, -rand.nextInt(lowestHeight),
-				-rand.nextInt(world.getDepth() - 100) - 50), new Vector3f(),
-				8f, 0.01f, world);
+		super(Assets.FISH_STILL2, 2.1f, world.getRandomClearPosition(),
+				new Vector3f(), 8f, 0.01f, world);
 
 		selectNextPoint();
 	}
 
 	private void selectNextPoint() {
-		nextPoint = new Vector3f((rand.nextFloat() - 0.5f) * world.getWidth(),
-				rand.nextFloat() * -lowestHeight, -rand.nextFloat()
-						* world.getDepth());
-
-		if (!world.positionClear(nextPoint)) {
-			selectNextPoint();
-		}
+		nextPoint = world.getRandomClearPosition();
 	}
 
 	@Override

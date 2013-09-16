@@ -14,8 +14,6 @@ public abstract class Fish extends MovingEntity {
 
 	public Fish(Image image, float defaultScale, Vector3f position,
 			Vector3f velocity, float maxSpeed, float speed, World world) {
-		// super(new SpriteSheet(Assets.FISH_ANIMATED, 170, 227), 0.5f,
-		// position, velocity, world);
 		super(image, defaultScale, 16, position, velocity, world);
 		this.maxSpeed = maxSpeed;
 		this.speed = speed;
