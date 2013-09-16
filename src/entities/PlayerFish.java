@@ -10,7 +10,7 @@ import base.World;
 public class PlayerFish extends Fish {
 
 	public PlayerFish(Vector3f position, Vector3f velocity, World world) {
-		super(Assets.FISH_STILL, 1.2f, position, velocity, 15.5f, world);
+		super(Assets.FISH_STILL, 1.2f, position, velocity, 15.5f, 0.04f, world);
 	}
 
 	Vector3f result = new Vector3f();
