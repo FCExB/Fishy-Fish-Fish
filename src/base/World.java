@@ -129,7 +129,7 @@ public class World {
 
 		Vector3f position = player.getPosition();
 
-		if (position.x > -15 && position.x < 15 && position.y < 80
+		if (position.x > -20 && position.x < 20 && position.y < 80
 				&& position.y > 50) {
 			state.fishLandsInBucket();
 			fish.add(new AIFish(this));

@@ -22,7 +22,7 @@ public class ThreeDShape implements Comparable<ThreeDShape> {
 		for (Vector3f vec : points) {
 			maxZ = Math.max(maxZ, vec.z);
 		}
-		
+
 		return;
 	}
 
@@ -41,32 +41,40 @@ public class ThreeDShape implements Comparable<ThreeDShape> {
 		g.fill(shape);
 	}
 
-	public float getMaxZ(){
+	public float getMaxZ() {
 		return maxZ;
 	}
-	
+
+	public List<Vector3f> getPoints() {
+		return points;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
 	@Override
-	public boolean equals(Object o){
-		if(!(o instanceof ThreeDShape)){
+	public boolean equals(Object o) {
+		if (!(o instanceof ThreeDShape)) {
 			return false;
 		}
-		
+
 		ThreeDShape that = (ThreeDShape) o;
-		
+
 		return this.points.equals(that.points);
 	}
 
 	@Override
 	public int compareTo(ThreeDShape that) {
 
-		if(this.equals(that)){
+		if (this.equals(that)) {
 			return 0;
 		}
-		
-		if(this.maxZ<that.maxZ){
+
+		if (this.maxZ < that.maxZ) {
 			return -1;
 		}
-		
+
 		return 1;
 	}
 }

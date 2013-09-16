@@ -1,5 +1,7 @@
 package base;
 
+import gameObjects.BackgroundEffects;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -17,6 +19,8 @@ public class GameplayState extends BasicGameState {
 
 	private final Camera camera = new Camera(0, 0);
 	private World world;
+
+	private BackgroundEffects background = new BackgroundEffects();
 
 	public static int score = 0;
 	private int timeRan = 0;
@@ -44,6 +48,7 @@ public class GameplayState extends BasicGameState {
 			game.enterState(FishGame.GAMEOVER_STATE);
 		}
 
+		background.update(delta);
 		world.update(container, delta);
 		camera.update(container, delta, score);
 
@@ -71,8 +76,7 @@ public class GameplayState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 
-		g.setAntiAlias(true);
-
+		background.render(camera, g);
 		world.render(camera, g);
 
 		renderUI(container, game, g);
@@ -101,5 +105,6 @@ public class GameplayState extends BasicGameState {
 		score = 0;
 		timeRan = 0;
 		world.resetAll();
+		background = new BackgroundEffects();
 	}
 }
