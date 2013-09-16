@@ -13,7 +13,7 @@ public class Camera {
 	private float x;
 	private float y;
 
-	private float angle = 11.8f;
+	private float angle = 8f;
 
 	public Camera(int x, int y) {
 		this.x = x;
@@ -60,8 +60,8 @@ public class Camera {
 		return new Vector2f(x, y);
 	}
 
-	private static final float MAX_ANGLE = 13f;
-	private static final float MIN_ANGLE = 0.4f;
+	private static final float MAX_ANGLE = 12f;
+	private static final float MIN_ANGLE = 0.3f;
 
 	private final float defaultX;
 	private final float defaultY;

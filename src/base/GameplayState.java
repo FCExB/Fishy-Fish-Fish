@@ -48,7 +48,7 @@ public class GameplayState extends BasicGameState {
 			game.enterState(FishGame.GAMEOVER_STATE);
 		}
 
-		background.update(delta);
+		background.update(delta, score);
 		world.update(container, delta);
 		camera.update(container, delta, score);
 

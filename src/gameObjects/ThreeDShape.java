@@ -11,17 +11,12 @@ import org.newdawn.slick.geom.Polygon;
 import base.Camera;
 
 public class ThreeDShape implements Comparable<ThreeDShape> {
-	private List<Vector3f> points;
-	private Color color;
-	private float maxZ = -1000;
+	protected List<Vector3f> points;
+	protected Color color;
 
 	public ThreeDShape(List<Vector3f> points, Color color) {
 		this.points = points;
 		this.color = color;
-
-		for (Vector3f vec : points) {
-			maxZ = Math.max(maxZ, vec.z);
-		}
 
 		return;
 	}
@@ -42,6 +37,13 @@ public class ThreeDShape implements Comparable<ThreeDShape> {
 	}
 
 	public float getMaxZ() {
+
+		float maxZ = Float.MIN_VALUE;
+
+		for (Vector3f vec : points) {
+			maxZ = Math.max(maxZ, vec.z);
+		}
+
 		return maxZ;
 	}
 
@@ -71,7 +73,7 @@ public class ThreeDShape implements Comparable<ThreeDShape> {
 			return 0;
 		}
 
-		if (this.maxZ < that.maxZ) {
+		if (this.getMaxZ() < that.getMaxZ()) {
 			return -1;
 		}
 
