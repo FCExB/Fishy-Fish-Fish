@@ -175,6 +175,10 @@ public class World {
 		return false;
 	}
 
+	public boolean playerHitFish() {
+		return hitFish(player);
+	}
+
 	public boolean positionClear(Vector3f position) {
 
 		if (position.z < -350) {
@@ -198,6 +202,11 @@ public class World {
 		// if (entity.greatestX() > 820 && entity.smallestY() < 50) {
 		// return new Vector3f(1, 0, 0);
 		// }
+
+		if (entity.greatestY() > 50 && entity.smallestY() < 50
+				&& entity.getPosition().x > -95 && entity.getPosition().x < 95) {
+			return new Vector3f(0, 1, 0);
+		}
 
 		if (entity.smallestZ() < -400) {
 			return new Vector3f(0, 0, 1);

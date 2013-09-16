@@ -20,7 +20,7 @@ public class AIFish extends Fish {
 		super(Assets.FISH_STILL2, 2.1f, new Vector3f(rand.nextInt(world
 				.getWidth() - 100) + 50, -rand.nextInt(lowestHeight),
 				-rand.nextInt(world.getDepth() - 100) - 50), new Vector3f(),
-				13f, world);
+				10f, world);
 
 		selectNextPoint();
 	}

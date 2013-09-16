@@ -95,11 +95,12 @@ public abstract class Fish extends MovingEntity {
 	}
 
 	public boolean shouldReset() {
-		if (position.x > 800 && position.y < 80) {
+		if (position.x > 500 || position.x < -500 || position.y < -400) {
 			return true;
 		}
 
-		if (position.y < -400 || position.x < 50) {
+		if (position.x > -95 && position.x < 95 && position.y > 30
+				&& position.y < 80) {
 			return true;
 		}
 

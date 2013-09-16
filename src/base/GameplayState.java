@@ -40,7 +40,7 @@ public class GameplayState extends BasicGameState {
 			throws SlickException {
 		timeRan += delta;
 
-		if (timeRan > timeLimit) {
+		if (timeRan > timeLimit || world.playerHitFish()) {
 			game.enterState(FishGame.GAMEOVER_STATE);
 		}
 

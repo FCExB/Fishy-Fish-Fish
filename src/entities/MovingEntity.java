@@ -71,6 +71,8 @@ public abstract class MovingEntity extends Entity {
 
 			} else if (boundry.z > 0) {
 				velocity.z = -velocity.z;
+			} else if (boundry.y > 0) {
+				velocity.y = 0;
 			}
 
 			velocity.scale(bounceDamping);
@@ -79,10 +81,10 @@ public abstract class MovingEntity extends Entity {
 
 		}
 
-		if (world.hitFish(this)) {
-			position = oldPosition;
-			velocity.scale(0.8f);
-		}
+		// if (world.hitFish(this)) {
+		// position = oldPosition;
+		// velocity.scale(0.8f);
+		// }
 	}
 
 	public void accelerate(Vector3f acceleration) {
