@@ -47,7 +47,11 @@ public abstract class MovingEntity extends Entity {
 
 		Vector3f oldPosition = position;
 
-		position = Vector3f.add(position, velocity, null);
+		Vector3f scaledVelocity = new Vector3f(velocity);
+
+		scaledVelocity.scale((float) deltaT / 33);
+
+		position = Vector3f.add(position, scaledVelocity, null);
 
 		if (velocity.length() < lowestNonZeroSpeed) {
 			position = oldPosition;

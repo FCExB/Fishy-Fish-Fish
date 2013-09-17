@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Random;
-
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.GameContainer;
 
@@ -9,10 +7,6 @@ import util.Assets;
 import base.World;
 
 public class AIFish extends Fish {
-
-	private static final int lowestHeight = 500;
-
-	private static final Random rand = new Random();
 
 	private Vector3f nextPoint;
 
