@@ -98,8 +98,8 @@ public abstract class Fish extends MovingEntity {
 			return true;
 		}
 
-		if (position.x > -95 && position.x < 95 && position.y > 30
-				&& position.y < 80) {
+		if (position.x > -110 && position.x < 110 && position.y > 20
+				&& position.y < 65) {
 			return true;
 		}
 

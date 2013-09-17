@@ -107,8 +107,8 @@ public class World {
 
 		Vector3f position = player.getPosition();
 
-		if (position.x > -20 && position.x < 20 && position.y < 80
-				&& position.y > 50) {
+		if (position.x > -20 && position.x < 20 && position.y < 65
+				&& position.y > 40) {
 			state.fishLandsInBucket();
 		}
 	}
@@ -198,7 +198,8 @@ public class World {
 	public Vector3f hitBoundry(Entity entity) {
 
 		if (entity.greatestY() > 50 && entity.smallestY() < 50
-				&& entity.getPosition().x > -95 && entity.getPosition().x < 95) {
+				&& entity.getPosition().x > -100
+				&& entity.getPosition().x < 100) {
 			return new Vector3f(0, 1, 0);
 		}
 
