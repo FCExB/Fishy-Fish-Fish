@@ -61,9 +61,10 @@ public class GameplayState extends BasicGameState {
 
 		Input input = container.getInput();
 
-		if (input.isKeyPressed(Input.KEY_R)) {
+		if (input.isKeyPressed(Input.KEY_R) || input.isButton1Pressed(0)) {
 			world.resetPlayer();
-		} else if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+		} else if (input.isKeyPressed(Input.KEY_ESCAPE)
+				|| input.isButton2Pressed(0)) {
 			game.enterState(FishGame.MAIN_MENU_STATE);
 		}
 

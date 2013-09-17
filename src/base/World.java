@@ -165,7 +165,7 @@ public class World {
 		do {
 			point = new Vector3f((rand.nextFloat() - 0.5f) * 1000,
 					rand.nextFloat() * -lowestHeight,
-					-rand.nextFloat() * 300 - 50);
+					-(rand.nextFloat() * 300) - 50);
 		} while (!positionClear(point));
 
 		return point;

@@ -84,14 +84,14 @@ public class BackgroundBlob extends ThreeDShape {
 	private static float colorFadeSpeed = 0.001f;
 
 	private static final float maxA = 0.5f;
-	private static final float colorMax = 0.7f;
+	private static final float colorMax = 0.6f;
 
 	private void updateColor(int delta, int score) {
 
 		color.r += rFade * colorFadeSpeed * delta * ((float) score / 10);
 		color.g += gFade * colorFadeSpeed * delta * ((float) score / 10);
 		color.b += bFade * colorFadeSpeed * delta * ((float) score / 10);
-		color.a += aFade * colorFadeSpeed * delta * ((float) score / 10);
+		color.a += aFade * colorFadeSpeed * delta * ((float) score / 13);
 
 		if (color.r > colorMax || color.r < 0) {
 			rFade = rand.nextFloat() * -Math.signum(rFade);

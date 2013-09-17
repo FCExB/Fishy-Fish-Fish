@@ -12,7 +12,7 @@ public class AIFish extends Fish {
 
 	public AIFish(World world) {
 		super(Assets.FISH_STILL2, 2.1f, world.getRandomClearPosition(),
-				new Vector3f(), 8f, 0.01f, world);
+				new Vector3f(), 9f, 0.015f, world);
 
 		selectNextPoint();
 	}
@@ -26,7 +26,7 @@ public class AIFish extends Fish {
 
 		Vector3f aim = Vector3f.sub(nextPoint, position, null);
 
-		if (aim.length() < 200) {
+		if (aim.length() < 100) {
 			selectNextPoint();
 		}
 

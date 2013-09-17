@@ -46,9 +46,10 @@ public class GameOverState extends BasicGameState {
 			throws SlickException {
 		Input input = container.getInput();
 
-		if (input.isKeyPressed(Input.KEY_SPACE)) {
+		if (input.isKeyPressed(Input.KEY_SPACE) || input.isButton1Pressed(0)) {
 			game.enterState(FishGame.GAMEPLAY_STATE);
-		} else if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+		} else if (input.isKeyPressed(Input.KEY_ESCAPE)
+				|| input.isButton2Pressed(0)) {
 			game.enterState(FishGame.MAIN_MENU_STATE);
 		}
 	}
