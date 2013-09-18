@@ -19,7 +19,6 @@ public class GameOverState extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -46,8 +45,12 @@ public class GameOverState extends BasicGameState {
 			throws SlickException {
 		Input input = container.getInput();
 
-		if (input.isKeyPressed(Input.KEY_SPACE) || input.isButton1Pressed(0)) {
+		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			game.enterState(FishGame.GAMEPLAY_STATE);
+			FishGame.USING_CONTROLLER = false;
+		} else if (input.isButton1Pressed(0)) {
+			game.enterState(FishGame.GAMEPLAY_STATE);
+			FishGame.USING_CONTROLLER = true;
 		} else if (input.isKeyPressed(Input.KEY_ESCAPE)
 				|| input.isButton2Pressed(0)) {
 			game.enterState(FishGame.MAIN_MENU_STATE);

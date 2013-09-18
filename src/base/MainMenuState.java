@@ -44,8 +44,12 @@ public class MainMenuState extends BasicGameState {
 			throws SlickException {
 		Input input = container.getInput();
 
-		if (input.isKeyPressed(Input.KEY_SPACE) || input.isButton1Pressed(0)) {
+		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			game.enterState(FishGame.GAMEPLAY_STATE);
+			FishGame.USING_CONTROLLER = false;
+		} else if (input.isButton1Pressed(0)) {
+			game.enterState(FishGame.GAMEPLAY_STATE);
+			FishGame.USING_CONTROLLER = true;
 		}
 
 		background.update(delta, 0);

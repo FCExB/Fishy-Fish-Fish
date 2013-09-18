@@ -11,6 +11,8 @@ public class FishGame extends StateBasedGame {
 	public static final int GAMEPLAY_STATE = 2;
 	public static final int GAMEOVER_STATE = 3;
 
+	public static boolean USING_CONTROLLER;
+
 	public FishGame() {
 		super("Fish Shit");
 	}
