@@ -55,6 +55,16 @@ public class GameOverState extends BasicGameState {
 	}
 
 	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+
+		Input input = container.getInput();
+
+		input.clearKeyPressedRecord();
+		input.clearControlPressedRecord();
+	}
+
+	@Override
 	public int getID() {
 		return stateID;
 	}

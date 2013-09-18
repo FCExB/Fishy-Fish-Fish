@@ -113,5 +113,10 @@ public class GameplayState extends BasicGameState {
 		// timeRan = 0;
 		world.resetAll();
 		background = new BackgroundEffects();
+
+		Input input = container.getInput();
+
+		input.clearKeyPressedRecord();
+		input.clearControlPressedRecord();
 	}
 }

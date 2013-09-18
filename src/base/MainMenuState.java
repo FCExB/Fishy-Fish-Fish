@@ -60,6 +60,10 @@ public class MainMenuState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		background = new BackgroundEffects();
+		Input input = container.getInput();
+
+		input.clearKeyPressedRecord();
+		input.clearControlPressedRecord();
 	}
 
 }
