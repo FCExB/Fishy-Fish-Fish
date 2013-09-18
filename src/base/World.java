@@ -24,7 +24,7 @@ import util.AudioManager;
 
 public class World {
 
-	public static final float GRAVITY = 0.012f;
+	public static final float GRAVITY = 0.015f;
 
 	public static final int lowestHeight = 300;
 

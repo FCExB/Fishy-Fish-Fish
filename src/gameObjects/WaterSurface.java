@@ -11,9 +11,8 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import entities.Fish;
-
 import base.Camera;
+import entities.Fish;
 
 public class WaterSurface {
 	private static final int UPDATE_FREQUENCY = 150;
@@ -262,6 +261,7 @@ public class WaterSurface {
 			float verticalSpeed) {
 
 		verticalSpeed += 0.2 * Math.signum(verticalSpeed);
+		verticalSpeed /= 14f;
 
 		float firstRingRange = 40 * fishScale * Math.abs(verticalSpeed);
 		float secondRingRange = 60 * fishScale * Math.abs(verticalSpeed);

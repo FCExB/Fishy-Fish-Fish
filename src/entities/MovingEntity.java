@@ -35,7 +35,7 @@ public abstract class MovingEntity extends Entity {
 
 	abstract protected Vector3f acceleration(int deltaT, GameContainer gc);
 
-	private final float lowestNonZeroSpeed = 0.3f;
+	private final float lowestNonZeroSpeed = 0.2f;
 
 	@Override
 	public void update(int deltaT, GameContainer gc) {

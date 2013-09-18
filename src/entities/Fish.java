@@ -8,15 +8,11 @@ import base.World;
 
 public abstract class Fish extends MovingEntity {
 
-	private final float speed;
-	private final float waterResistance = 0.02f;
-	private final float maxSpeed;
+	private final float waterResistance = 0.03f;
 
 	public Fish(Image image, float defaultScale, Vector3f position,
-			Vector3f velocity, float maxSpeed, float speed, World world) {
+			Vector3f velocity, World world) {
 		super(image, defaultScale, 16, position, velocity, world);
-		this.maxSpeed = maxSpeed;
-		this.speed = speed;
 		lastPos = position;
 	}
 
@@ -39,8 +35,7 @@ public abstract class Fish extends MovingEntity {
 		Vector3f velocity = getVelocity();
 
 		if ((!inWaterLast && inWaterNow) || (!inWaterNow && inWaterLast)) {
-			world.crossWaterLevel(position, changingScale, velocity.y
-					/ maxSpeed);
+			world.crossWaterLevel(position, changingScale, velocity.y);
 		}
 
 		lastPos = position;
@@ -62,7 +57,7 @@ public abstract class Fish extends MovingEntity {
 		}
 	}
 
-	protected abstract Vector3f getAccelerationDirection(GameContainer gc);
+	protected abstract Vector3f getFishAcceleration(GameContainer gc);
 
 	@Override
 	protected Vector3f acceleration(int deltaT, GameContainer gc) {
@@ -71,26 +66,21 @@ public abstract class Fish extends MovingEntity {
 			return new Vector3f(0, -World.GRAVITY * deltaT, 0);
 		}
 
-		Vector3f result = new Vector3f();
+		Vector3f result = getFishAcceleration(gc);
 
-		if (getVelocity().length() < maxSpeed * changingScale) {
-			result = getAccelerationDirection(gc);
+		Vector3f waterResistanceAcceleration = getVelocity();
+
+		if (result.lengthSquared() == 0
+				&& waterResistanceAcceleration.lengthSquared() != 0) {
+			waterResistanceAcceleration.normalise().negate()
+					.scale(waterResistance);
+
+			Vector3f.add(result, waterResistanceAcceleration, result);
 		}
 
-		if (result.lengthSquared() != 0) {
+		result.scale(changingScale * deltaT);
 
-			result.normalise().scale(speed * changingScale * deltaT);
-
-			return result;
-		} else {
-			Vector3f velocity = getVelocity();
-
-			if (velocity.lengthSquared() != 0) {
-				return (Vector3f) velocity.normalise().negate()
-						.scale(waterResistance * changingScale * deltaT);
-			} else
-				return result;
-		}
+		return result;
 	}
 
 	public boolean shouldReset() {
