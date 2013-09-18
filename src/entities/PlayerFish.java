@@ -25,19 +25,29 @@ public class PlayerFish extends Fish {
 
 		Input input = gc.getInput();
 
-		if (input.isKeyDown(Input.KEY_W) || input.isControllerUp(0)) {
+		if (input.getControllerCount() > 0) {
+			result.x = input.getAxisValue(0, 1);
+			result.y = -input.getAxisValue(0, 0);
+
+			if (result.length() < 0.5) {
+				result.scale(0);
+			}
+			return result;
+		}
+
+		if (input.isKeyDown(Input.KEY_W)) {
 			result.y += 1;
 		}
 
-		if (input.isKeyDown(Input.KEY_S) || input.isControllerDown(0)) {
+		if (input.isKeyDown(Input.KEY_S)) {
 			result.y -= 1;
 		}
 
-		if (input.isKeyDown(Input.KEY_A) || input.isControllerLeft(0)) {
+		if (input.isKeyDown(Input.KEY_A)) {
 			result.x -= 1;
 		}
 
-		if (input.isKeyDown(Input.KEY_D) || input.isControllerRight(0)) {
+		if (input.isKeyDown(Input.KEY_D)) {
 			result.x += 1;
 		}
 
