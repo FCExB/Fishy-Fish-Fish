@@ -61,7 +61,6 @@ public class BackgroundBlob extends ThreeDShape {
 	private void updatePosition(int delta, int score) {
 		location.x += movementDirection.x * delta * speed * ((float) score / 8);
 		location.y += movementDirection.y * delta * speed * ((float) score / 8);
-		location.z += movementDirection.z * delta * speed * ((float) score / 8);
 
 		if (location.x > 600 || location.x < -600) {
 			randomDirection(movementDirection);
@@ -69,10 +68,6 @@ public class BackgroundBlob extends ThreeDShape {
 		}
 
 		if (location.y > 400 || location.y < -400) {
-			randomDirection(movementDirection);
-		}
-
-		if (location.z > -400 || location.z < -500) {
 			randomDirection(movementDirection);
 		}
 	}

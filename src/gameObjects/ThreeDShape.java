@@ -10,17 +10,24 @@ import org.newdawn.slick.geom.Polygon;
 
 import base.Camera;
 
-public class ThreeDShape implements Comparable<ThreeDShape> {
+public class ThreeDShape implements InWorldSpace {
 	protected List<Vector3f> points;
 	protected Color color;
+
+	private float minZ;
 
 	public ThreeDShape(List<Vector3f> points, Color color) {
 		this.points = points;
 		this.color = color;
 
-		return;
+		minZ = 0;
+
+		for (Vector3f vec : points) {
+			minZ = Math.min(minZ, vec.z);
+		}
 	}
 
+	@Override
 	public void render(Camera camera, Graphics g) {
 
 		Polygon shape = new Polygon();
@@ -36,15 +43,9 @@ public class ThreeDShape implements Comparable<ThreeDShape> {
 		g.fill(shape);
 	}
 
-	public float getMaxZ() {
-
-		float maxZ = Float.MIN_VALUE;
-
-		for (Vector3f vec : points) {
-			maxZ = Math.max(maxZ, vec.z);
-		}
-
-		return maxZ;
+	@Override
+	public float getZ() {
+		return minZ;
 	}
 
 	public List<Vector3f> getPoints() {
@@ -56,24 +57,13 @@ public class ThreeDShape implements Comparable<ThreeDShape> {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof ThreeDShape)) {
-			return false;
-		}
+	public int compareTo(InWorldSpace that) {
 
-		ThreeDShape that = (ThreeDShape) o;
-
-		return this.points.equals(that.points);
-	}
-
-	@Override
-	public int compareTo(ThreeDShape that) {
-
-		if (this.equals(that)) {
+		if (this.equals(that) || this.getZ() == that.getZ()) {
 			return 0;
 		}
 
-		if (this.getMaxZ() < that.getMaxZ()) {
+		if (this.getZ() < that.getZ()) {
 			return -1;
 		}
 

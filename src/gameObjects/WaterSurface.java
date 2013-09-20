@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Graphics;
@@ -174,18 +173,15 @@ public class WaterSurface {
 
 	public void render(Camera camera, Graphics g, SortedSet<Fish> fish) {
 
-		SortedSet<ThreeDShape> sortedTriangles = new TreeSet<ThreeDShape>(
-				triangles);
-
 		if (fish.size() == 0) {
-			for (ThreeDShape s : sortedTriangles) {
+			for (ThreeDShape s : triangles) {
 				s.render(camera, g);
 			}
 			return;
 		}
 
 		Iterator<Fish> theFish = fish.iterator();
-		Iterator<ThreeDShape> theShapes = sortedTriangles.iterator();
+		Iterator<WaterSurfaceTriangle> theShapes = triangles.iterator();
 
 		Fish nextFish = theFish.next();
 		ThreeDShape nextShape = theShapes.next();
@@ -194,7 +190,7 @@ public class WaterSurface {
 
 		while (!fishEmpty && !shapesEmpty) {
 
-			if (nextFish.getPosition().z < nextShape.getMaxZ()) {
+			if (nextFish.getPosition().z < nextShape.getZ()) {
 				nextFish.render(camera, g);
 				if (theFish.hasNext()) {
 					nextFish = theFish.next();
@@ -226,6 +222,10 @@ public class WaterSurface {
 				nextFish.render(camera, g);
 			}
 		}
+	}
+
+	public List<InWorldSpace> getShapes() {
+		return new ArrayList<InWorldSpace>(triangles);
 	}
 
 	public List<Vector3f> getFrontRow() {

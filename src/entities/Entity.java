@@ -1,5 +1,7 @@
 package entities;
 
+import gameObjects.InWorldSpace;
+
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -10,7 +12,7 @@ import util.SpriteSheet;
 import base.Camera;
 import base.World;
 
-public abstract class Entity implements Comparable<Entity> {
+public abstract class Entity implements InWorldSpace {
 
 	protected Vector3f position;
 
@@ -111,6 +113,7 @@ public abstract class Entity implements Comparable<Entity> {
 		return new Vector3f(position);
 	}
 
+	@Override
 	public void render(Camera camera, Graphics g) {
 		// if (camera.inRenderView(position)) {
 
@@ -195,7 +198,21 @@ public abstract class Entity implements Comparable<Entity> {
 	public abstract void hitBy(Entity entity);
 
 	@Override
-	public int compareTo(Entity that) {
-		return new Float(position.z).compareTo(that.position.z);
+	public int compareTo(InWorldSpace that) {
+
+		if (this.equals(that)) {
+			return 0;
+		}
+
+		if (this.getZ() < that.getZ()) {
+			return -1;
+		}
+
+		return 1;
+	}
+
+	@Override
+	public float getZ() {
+		return position.z;
 	}
 }

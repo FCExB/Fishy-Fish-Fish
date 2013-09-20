@@ -4,15 +4,16 @@ import entities.AIFish;
 import entities.Entity;
 import entities.Fish;
 import entities.PlayerFish;
+import gameObjects.InWorldSpace;
 import gameObjects.ThreeDShape;
 import gameObjects.WaterSurface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
@@ -46,6 +47,8 @@ public class World {
 	private PlayerFish player;
 
 	private final Set<Fish> fish;
+
+	private final List<InWorldSpace> allObjects;
 
 	public World(GameplayState state) throws SlickException {
 
@@ -96,6 +99,12 @@ public class World {
 
 		bucketFront = new ThreeDShape(bucketFrontVecs, new Color(0f, 0.6f, 0f,
 				0.8f));
+
+		allObjects = waterTop.getShapes();
+		allObjects.add(jettyTopSide);
+		allObjects.add(jettyTopTop);
+		allObjects.add(waterSide);
+		allObjects.add(bucketFront);
 	}
 
 	public void update(GameContainer container, int delta) {
@@ -114,28 +123,17 @@ public class World {
 	}
 
 	public void addAIFish() {
-		fish.add(new AIFish(this));
+		Fish f = new AIFish(this);
+		fish.add(f);
+		allObjects.add(f);
 	}
 
 	public void render(Camera camera, Graphics g) {
 
-		if (inWater(player.getPosition())) {
-			waterTop.render(camera, g, new TreeSet<Fish>(fish));
+		Collections.sort(allObjects);
 
-			jettyTopTop.render(camera, g);
-			jettyTopSide.render(camera, g);
-			waterSide.render(camera, g);
-			bucketFront.render(camera, g);
-		} else {
-			fish.remove(player);
-			waterTop.render(camera, g, new TreeSet<Fish>(fish));
-
-			jettyTopTop.render(camera, g);
-			jettyTopSide.render(camera, g);
-			waterSide.render(camera, g);
-			player.render(camera, g);
-			bucketFront.render(camera, g);
-			fish.add(player);
+		for (InWorldSpace thing : allObjects) {
+			thing.render(camera, g);
 		}
 	}
 
@@ -217,15 +215,18 @@ public class World {
 	public void resetPlayer() {
 		if (player.shouldReset()) {
 			fish.remove(player);
+			allObjects.remove(player);
 			do {
 				player = new PlayerFish(new Vector3f(), this);
 			} while (hitFish(player));
 
 			fish.add(player);
+			allObjects.add(player);
 		}
 	}
 
 	public void resetAll() {
+		allObjects.removeAll(fish);
 		fish.clear();
 
 		do {
@@ -233,6 +234,7 @@ public class World {
 		} while (hitFish(player));
 
 		fish.add(player);
+		allObjects.add(player);
 
 		waterTop.reset();
 	}
