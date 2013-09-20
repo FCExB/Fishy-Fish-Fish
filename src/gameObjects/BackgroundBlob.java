@@ -43,8 +43,8 @@ public class BackgroundBlob extends ThreeDShape {
 	}
 
 	private Vector3f randomLocation(Vector3f vec) {
-		vec.x = (rand.nextFloat() - 0.5f) * 1200;
-		vec.y = (rand.nextFloat() - 0.5f) * 800;
+		vec.x = (rand.nextFloat() - 0.5f) * 1000;
+		vec.y = rand.nextFloat() * 700 - 400;
 		vec.z = -400 - rand.nextFloat() * 100;
 
 		return vec;
@@ -62,12 +62,12 @@ public class BackgroundBlob extends ThreeDShape {
 		location.x += movementDirection.x * delta * speed * ((float) score / 8);
 		location.y += movementDirection.y * delta * speed * ((float) score / 8);
 
-		if (location.x > 600 || location.x < -600) {
+		if (location.x > 500 || location.x < -500) {
 			randomDirection(movementDirection);
 
 		}
 
-		if (location.y > 400 || location.y < -400) {
+		if (location.y > 300 || location.y < -400) {
 			randomDirection(movementDirection);
 		}
 	}
@@ -88,19 +88,19 @@ public class BackgroundBlob extends ThreeDShape {
 		color.b += bFade * colorFadeSpeed * delta * ((float) score / 10);
 		color.a += aFade * colorFadeSpeed * delta * ((float) score / 13);
 
-		if (color.r > colorMax || color.r < 0) {
+		if (color.r > colorMax || color.r < 0.1) {
 			rFade = rand.nextFloat() * -Math.signum(rFade);
 		}
 
-		if (color.g > colorMax || color.g < 0) {
+		if (color.g > colorMax || color.g < 0.1) {
 			gFade = rand.nextFloat() * -Math.signum(gFade);
 		}
 
-		if (color.b > colorMax || color.b < 0) {
+		if (color.b > colorMax || color.b < 0.1) {
 			bFade = rand.nextFloat() * -Math.signum(bFade);
 		}
 
-		if (color.a > maxA || color.a < 0.1) {
+		if (color.a > maxA || color.a < 0.3) {
 			aFade = rand.nextFloat() * -Math.signum(aFade);
 		}
 	}

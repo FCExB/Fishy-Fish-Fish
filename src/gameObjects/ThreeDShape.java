@@ -14,17 +14,17 @@ public class ThreeDShape implements InWorldSpace {
 	protected List<Vector3f> points;
 	protected Color color;
 
-	private float minZ;
+	private float z = 0;
 
 	public ThreeDShape(List<Vector3f> points, Color color) {
 		this.points = points;
 		this.color = color;
 
-		minZ = 0;
-
 		for (Vector3f vec : points) {
-			minZ = Math.min(minZ, vec.z);
+			z += vec.z;
 		}
+
+		z /= points.size();
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class ThreeDShape implements InWorldSpace {
 
 	@Override
 	public float getZ() {
-		return minZ;
+		return z;
 	}
 
 	public List<Vector3f> getPoints() {
