@@ -35,9 +35,12 @@ public class GameOverState extends BasicGameState {
 		g.drawString("GAME OVER!!!", 300, 400);
 		g.drawString("Score: " + GameplayState.score, 300, 420);
 
-		g.drawString("Press SPACE for instant restart", 300, 460);
+		g.drawString("Press " + (FishGame.USING_CONTROLLER ? "A/X" : "SPACE")
+				+ " for instant restart", 300, 460);
 
-		g.drawString("Or press ESCAPE for main menu", 300, 480);
+		g.drawString("Or press "
+				+ (FishGame.USING_CONTROLLER ? "B/SQUARE" : "ESCAPE")
+				+ " for main menu", 300, 480);
 	}
 
 	@Override

@@ -36,7 +36,14 @@ public class MainMenuState extends BasicGameState {
 		g.setColor(Color.white);
 
 		g.drawString("Here, Fishy Fish Fish!", 400, 200);
-		g.drawString("Hit SPACE to play", 400, 230);
+		g.drawString("Hit SPACE or A/X on a controller to play", 320, 230);
+
+		g.drawString("W", 350, 300);
+		g.drawString("A S D", 333, 315);
+
+		g.drawString("To move OR use a controller!", 400, 307);
+
+		g.drawString("GET IN THE BUCKET!", 400, 370);
 	}
 
 	@Override
