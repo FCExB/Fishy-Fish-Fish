@@ -14,7 +14,7 @@ public class PlayerFish extends Fish {
 	private static final float acceleration = 0.05f;
 
 	public PlayerFish(Vector3f velocity, World world) {
-		super(Assets.FISH_STILL, 1.2f, world.getRandomClearPosition(),
+		super(Assets.PLAYER_FISH, 1.2f, world.getRandomClearPosition(),
 				velocity, world);
 
 		position.z = -200;

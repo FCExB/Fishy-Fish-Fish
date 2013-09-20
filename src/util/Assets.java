@@ -5,22 +5,12 @@ import org.newdawn.slick.SlickException;
 
 public class Assets {
 
-	public static Image FISH_ANIMATED;
-	public static Image FISH_STILL;
-	public static Image FISH_STILL2;
-	public static Image WATER_SKY_BACKGROUND;
+	public static Image PLAYER_FISH;
+	public static Image AI_FISH;
 
 	public Assets() throws SlickException {
 
-		// FISH_ANIMATED = new Image(
-		// ResourceLoader
-		// .getResourceAsStream("http://fcexb.com/test/data/fishSmall.png"),
-		// "http://fcexb.com/test//data/fish sprite.png", false);
-
-		FISH_STILL = new Image("data/fishSmall.png");
-		FISH_STILL2 = new Image("data/ocean_1.png").getSubImage(1, 32 * 3, 32,
-				32);
-
-		WATER_SKY_BACKGROUND = new Image("data/waterSky.jpg");
+		PLAYER_FISH = new Image("data/fishSmall.png");
+		AI_FISH = new Image("data/enemy.png");
 	}
 }

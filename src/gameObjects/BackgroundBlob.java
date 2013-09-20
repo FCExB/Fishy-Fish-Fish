@@ -20,6 +20,8 @@ public class BackgroundBlob extends ThreeDShape {
 
 	private static final Random rand = new Random();
 
+	private float scale = 1f;
+
 	public BackgroundBlob(List<Vector3f> vecs) {
 		super(vecs, randomColor());
 
@@ -52,8 +54,24 @@ public class BackgroundBlob extends ThreeDShape {
 
 	public void update(int delta, int score) {
 		score += 1;
+
 		updatePosition(delta, score);
 		updateColor(delta, score);
+		updateScale(delta, score);
+	}
+
+	private static float scaleFadeSpeed = 0.001f;
+
+	private float nextScale = 1;
+
+	private void updateScale(int delta, int score) {
+
+		if (Math.abs(scale - nextScale) < 0.1) {
+			nextScale = 1 + rand.nextFloat() * (score - 1) * 0.5f;
+		}
+
+		scale += Math.signum(nextScale - scale) * scaleFadeSpeed * delta
+				* ((float) score / 10);
 	}
 
 	private static final float speed = 0.1f;
@@ -108,7 +126,9 @@ public class BackgroundBlob extends ThreeDShape {
 	@Override
 	public void render(Camera camera, Graphics g) {
 		for (int i = 0; i < defaultVecs.size(); i++) {
+			defaultVecs.get(i).scale(scale);
 			Vector3f.add(location, defaultVecs.get(i), points.get(i));
+			defaultVecs.get(i).scale(1 / scale);
 		}
 
 		super.render(camera, g);
