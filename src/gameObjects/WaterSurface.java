@@ -1,14 +1,15 @@
 package gameObjects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import base.Camera;
@@ -32,7 +33,7 @@ public class WaterSurface {
 
 	private final Random rand = new Random();
 
-	private final SortedSet<ThreeDShape> polys = new TreeSet<ThreeDShape>();
+	private final Set<WaterSurfaceTriangle> triangles = new HashSet<WaterSurfaceTriangle>();
 
 	public WaterSurface(Vector3f frontLeft, float width, float depth,
 			int numWide, int numDeep) {
@@ -53,13 +54,10 @@ public class WaterSurface {
 		this.numDeep = numDeep;
 		this.numWide = numWide;
 
-		updateTriangles();
+		setupTriangles();
 	}
 
-	private void updateTriangles() {
-
-		timeSinceUpdate = 0;
-		polys.clear();
+	private void setupTriangles() {
 
 		for (int z = 0; z < numDeep; z++) {
 
@@ -73,8 +71,7 @@ public class WaterSurface {
 						triangle.add(points[z][x - 1]);
 						triangle.add(points[z - 1][x]);
 
-						polys.add(new ThreeDShape(triangle,
-								calculateColor(triangle)));
+						triangles.add(new WaterSurfaceTriangle(triangle));
 
 					}
 
@@ -86,8 +83,7 @@ public class WaterSurface {
 						triangle.add(points[z][x + 1]);
 						triangle.add(points[z - 1][x]);
 
-						polys.add(new ThreeDShape(triangle,
-								calculateColor(triangle)));
+						triangles.add(new WaterSurfaceTriangle(triangle));
 
 					}
 				}
@@ -100,8 +96,7 @@ public class WaterSurface {
 						triangle.add(points[z][x - 1]);
 						triangle.add(points[z + 1][x]);
 
-						polys.add(new ThreeDShape(triangle,
-								calculateColor(triangle)));
+						triangles.add(new WaterSurfaceTriangle(triangle));
 
 					}
 
@@ -113,8 +108,7 @@ public class WaterSurface {
 						triangle.add(points[z][x + 1]);
 						triangle.add(points[z + 1][x]);
 
-						polys.add(new ThreeDShape(triangle,
-								calculateColor(triangle)));
+						triangles.add(new WaterSurfaceTriangle(triangle));
 
 					}
 				}
@@ -128,11 +122,7 @@ public class WaterSurface {
 
 		if (timeSinceUpdate >= UPDATE_FREQUENCY) {
 
-			// int z = 0; //rand.nextInt(numDeep);
-			// int zEnd = numDeep; // rand.nextInt(numDeep);
-			//
-			// int x = 0; // rand.nextInt(numWide);
-			// int xEnd = numWide; // rand.nextInt(numWide);
+			timeSinceUpdate = 0;
 
 			for (int z = 0; z < numDeep; z++) {
 				for (int x = 0; x < numWide; x++) {
@@ -176,37 +166,26 @@ public class WaterSurface {
 				}
 			}
 
-			updateTriangles();
+			for (WaterSurfaceTriangle triangle : triangles) {
+				triangle.update();
+			}
 		}
-	}
-
-	private Color calculateColor(List<Vector3f> triangle) {
-
-		// return new Color(rand.nextFloat(), rand.nextFloat(),
-		// rand.nextFloat());
-
-		float height = Float.MIN_VALUE;
-		for (Vector3f vec : triangle) {
-			height = Math.max(vec.y, height);
-		}
-
-		height += 0.5;
-		height /= 5;
-
-		return new Color(0f, 0f, height, 0.7f);
 	}
 
 	public void render(Camera camera, Graphics g, SortedSet<Fish> fish) {
 
+		SortedSet<ThreeDShape> sortedTriangles = new TreeSet<ThreeDShape>(
+				triangles);
+
 		if (fish.size() == 0) {
-			for (ThreeDShape s : polys) {
+			for (ThreeDShape s : sortedTriangles) {
 				s.render(camera, g);
 			}
 			return;
 		}
 
 		Iterator<Fish> theFish = fish.iterator();
-		Iterator<ThreeDShape> theShapes = polys.iterator();
+		Iterator<ThreeDShape> theShapes = sortedTriangles.iterator();
 
 		Fish nextFish = theFish.next();
 		ThreeDShape nextShape = theShapes.next();
