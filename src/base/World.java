@@ -131,6 +131,7 @@ public class World {
 		Collections.sort(allObjects);
 
 		for (InWorldSpace thing : allObjects) {
+
 			thing.render(camera, g);
 		}
 	}

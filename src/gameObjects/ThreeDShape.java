@@ -32,15 +32,21 @@ public class ThreeDShape implements InWorldSpace {
 
 		Polygon shape = new Polygon();
 
+		boolean toDraw = false;
+
 		for (Vector3f vec : points) {
+
+			toDraw |= camera.inRenderView(vec);
 
 			Vector2f cameraSpace = camera.worldToCameraSpace(vec);
 
 			shape.addPoint(cameraSpace.getX(), cameraSpace.getY());
 		}
 
-		g.setColor(color);
-		g.fill(shape);
+		if (toDraw) {
+			g.setColor(color);
+			g.fill(shape);
+		}
 	}
 
 	@Override

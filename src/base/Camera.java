@@ -130,12 +130,13 @@ public class Camera {
 	// this.viewHeight = viewHeight;
 	// }
 	//
-	// public boolean inRenderView(Vector3f pos) {
-	//
-	// int halfWidth = viewWidth / 2;
-	// float halfHeight = (viewHeight / zScaler()) / 2;
-	//
-	// return pos.x >= x - halfWidth && pos.x < x + halfWidth
-	// && pos.z >= y - halfHeight && pos.z < y + halfHeight;
-	// }
+
+	public boolean inRenderView(Vector3f pos) {
+
+		int halfWidth = 1000 / 2;
+		float halfHeight = (600 / zScaler()) / 2;
+
+		return pos.x >= x - halfWidth && pos.x < x + halfWidth
+				&& pos.z >= y - halfHeight && pos.z < y + halfHeight;
+	}
 }
