@@ -9,7 +9,7 @@ import base.World;
 public class AIFish extends Fish {
 
 	private static final float maxSpeed = 9f;
-	private static final float acceleration = 0.02f;
+	private static final float acceleration = 0.03f;
 
 	private Vector3f nextPoint;
 

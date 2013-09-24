@@ -67,7 +67,7 @@ public class BackgroundBlob extends ThreeDShape {
 	private void updateScale(int delta, int score) {
 
 		if (Math.abs(scale - nextScale) < 0.1) {
-			nextScale = 1 + rand.nextFloat() * (score - 1) * 0.5f;
+			nextScale = 1 + rand.nextFloat() * ((score - 1) / 3f);
 		}
 
 		scale += Math.signum(nextScale - scale) * scaleFadeSpeed * delta

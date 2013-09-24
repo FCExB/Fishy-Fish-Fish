@@ -35,7 +35,7 @@ public abstract class MovingEntity extends Entity {
 
 	abstract protected Vector3f acceleration(int deltaT, GameContainer gc);
 
-	private final float lowestNonZeroSpeed = 0.2f;
+	private final float lowestNonZeroSpeed = 0.27f;
 
 	@Override
 	public void update(int deltaT, GameContainer gc) {
@@ -64,19 +64,13 @@ public abstract class MovingEntity extends Entity {
 		Vector3f boundry = world.hitBoundry(this);
 
 		if (boundry.lengthSquared() != 0) {
-			if (smallestY() < 50 && greatestY() > 50 && greatestX() > 800) {
-				position = oldPosition;
-				velocity = new Vector3f();
-				return;
-			}
 
 			if (boundry.x > 0) {
 				velocity.x = -velocity.x;
-
 			} else if (boundry.z > 0) {
 				velocity.z = -velocity.z;
 			} else if (boundry.y > 0) {
-				velocity.y = 0;
+				velocity.y = -velocity.y;
 			}
 
 			velocity.scale(bounceDamping);
@@ -84,11 +78,6 @@ public abstract class MovingEntity extends Entity {
 			return;
 
 		}
-
-		// if (world.hitFish(this)) {
-		// position = oldPosition;
-		// velocity.scale(0.8f);
-		// }
 	}
 
 	public void accelerate(Vector3f acceleration) {
