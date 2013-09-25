@@ -24,7 +24,6 @@ public class MainMenuState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
-		// gc.setTargetFrameRate(30);
 
 	}
 
@@ -36,14 +35,18 @@ public class MainMenuState extends BasicGameState {
 		g.setColor(Color.white);
 
 		g.drawString("Here, Fishy Fish Fish!", 400, 200);
-		g.drawString("Hit SPACE or A/X on a controller to play", 320, 230);
+		g.drawString("Hit SPACE or BUTTON1 on a controller to play", 320, 230);
 
 		g.drawString("W", 350, 300);
 		g.drawString("A S D", 333, 315);
 
 		g.drawString("To move OR use a controller!", 400, 307);
 
-		g.drawString("GET IN THE BUCKET!", 400, 370);
+		g.drawString(
+				"R or BUTTON2 on a controller to reset when stuck or lost",
+				250, 340);
+
+		g.drawString("GET IN THE BUCKET!", 400, 400);
 	}
 
 	@Override
