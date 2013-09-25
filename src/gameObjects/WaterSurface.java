@@ -2,17 +2,11 @@ package gameObjects;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.SortedSet;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Graphics;
-
-import base.Camera;
-import entities.Fish;
 
 public class WaterSurface {
 	private static final int UPDATE_FREQUENCY = 150;
@@ -171,60 +165,8 @@ public class WaterSurface {
 		}
 	}
 
-	public void render(Camera camera, Graphics g, SortedSet<Fish> fish) {
-
-		if (fish.size() == 0) {
-			for (ThreeDShape s : triangles) {
-				s.render(camera, g);
-			}
-			return;
-		}
-
-		Iterator<Fish> theFish = fish.iterator();
-		Iterator<WaterSurfaceTriangle> theShapes = triangles.iterator();
-
-		Fish nextFish = theFish.next();
-		ThreeDShape nextShape = theShapes.next();
-
-		boolean fishEmpty = false, shapesEmpty = false;
-
-		while (!fishEmpty && !shapesEmpty) {
-
-			if (nextFish.getPosition().z < nextShape.getZ()) {
-				nextFish.render(camera, g);
-				if (theFish.hasNext()) {
-					nextFish = theFish.next();
-				} else {
-					fishEmpty = true;
-				}
-			} else {
-				nextShape.render(camera, g);
-				if (theShapes.hasNext()) {
-					nextShape = theShapes.next();
-				} else {
-					shapesEmpty = true;
-				}
-			}
-		}
-
-		if (fishEmpty) {
-			nextShape.render(camera, g);
-			while (theShapes.hasNext()) {
-				nextShape = theShapes.next();
-				nextShape.render(camera, g);
-			}
-		}
-
-		if (shapesEmpty) {
-			nextFish.render(camera, g);
-			while (theFish.hasNext()) {
-				nextFish = theFish.next();
-				nextFish.render(camera, g);
-			}
-		}
-	}
-
 	public List<InWorldSpace> getShapes() {
+		System.out.println("Number of triangles: " + triangles.size());
 		return new ArrayList<InWorldSpace>(triangles);
 	}
 
