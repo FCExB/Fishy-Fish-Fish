@@ -53,7 +53,7 @@ public abstract class MovingEntity extends Entity {
 
 		position = Vector3f.add(position, scaledVelocity, null);
 
-		if (velocity.length() < lowestNonZeroSpeed) {
+		if (velocity.length() < lowestNonZeroSpeed && world.inWater(position)) {
 			position = oldPosition;
 			velocity = new Vector3f();
 			return;
