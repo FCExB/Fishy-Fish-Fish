@@ -182,7 +182,7 @@ public class WaterSurface {
 			float verticalSpeed) {
 
 		verticalSpeed += 0.2 * Math.signum(verticalSpeed);
-		verticalSpeed /= 14f;
+		verticalSpeed /= 10f;
 
 		float firstRingRange = 40 * fishScale * Math.abs(verticalSpeed);
 		float secondRingRange = 60 * fishScale * Math.abs(verticalSpeed);
