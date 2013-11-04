@@ -115,30 +115,30 @@ public abstract class Entity implements InWorldSpace {
 
 	@Override
 	public void render(Camera camera, Graphics g) {
-		// if (camera.inRenderView(position)) {
+		if (camera.inRenderView(position)) {
 
-		float zScaler = camera.zScaler();
-		float otherScaler = camera.otherScaler();
+			float zScaler = camera.zScaler();
+			float otherScaler = camera.otherScaler();
 
-		int x = (int) (Math.round(position.getX() - camera.getX()) + 500 - (originalWidth
-				* fixedScale * changingScale) / 2);
-		int y = Math.round((position.getZ() - camera.getY()) * zScaler + 300
-				- originalHeight * fixedScale * changingScale * otherScaler
-				- position.y * otherScaler);
-		float xScale = 1;
-		float yScale = otherScaler;
+			int x = (int) (Math.round(position.getX() - camera.getX()) + 500 - (originalWidth
+					* fixedScale * changingScale) / 2);
+			int y = Math.round((position.getZ() - camera.getY()) * zScaler
+					+ 300 - originalHeight * fixedScale * changingScale
+					* otherScaler - position.y * otherScaler);
+			float xScale = 1;
+			float yScale = otherScaler;
 
-		Image image = animation.getSubImage(animationFrame, spriteSheetRow);
+			Image image = animation.getSubImage(animationFrame, spriteSheetRow);
 
-		image = image.getFlippedCopy(horizontalFlip, false);
+			image = image.getFlippedCopy(horizontalFlip, false);
 
-		image.setRotation(rotationAngle);
+			image.setRotation(rotationAngle);
 
-		image.draw(x, y, originalWidth * fixedScale * changingScale * xScale,
-				originalHeight * fixedScale * changingScale * yScale);
+			image.draw(x, y, originalWidth * fixedScale * changingScale
+					* xScale, originalHeight * fixedScale * changingScale
+					* yScale);
 
-		// renderExtras(camera, g, filter);
-		// }
+		}
 	}
 
 	/**

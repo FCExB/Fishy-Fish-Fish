@@ -168,8 +168,7 @@ public class World {
 
 		do {
 			point = new Vector3f((rand.nextFloat() - 0.5f) * 1000,
-					rand.nextFloat() * -lowestHeight,
-					-(rand.nextFloat() * 300) - 50);
+					rand.nextFloat() * -lowestHeight, -(rand.nextFloat() * 400));
 		} while (!positionClear(point));
 
 		return point;
@@ -223,13 +222,13 @@ public class World {
 					|| this.greatestY >= entity.greatestY()
 					&& this.smallestY <= entity.smallestY()) {
 				// There is a y overlap
-				
+
 				Vector3f result = entity.getPosition();
-				
-				if(result.y > 0) {
-					return new Vector3f(0,1,0);
+
+				if (result.y > 0) {
+					return new Vector3f(0, 0.8f, 0);
 				}
-				
+
 				Vector3f.sub(result, new Vector3f(0, 0, 0), result);
 				result.z = 0;
 				result.normalise();
@@ -242,8 +241,9 @@ public class World {
 			return new Vector3f(0, 0, 1);
 		}
 
-		if (entity.greatestZ() > 0)
-			return new Vector3f(0, 0, 1);
+		if (entity.greatestZ() > 0) {
+			return new Vector3f(0, 0, -1);
+		}
 
 		return new Vector3f();
 	}
