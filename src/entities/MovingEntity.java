@@ -59,22 +59,22 @@ public abstract class MovingEntity extends Entity {
 			return;
 		}
 
-		float bounceDamping = 0.4f;
+		float bounceDamping = 2f;
 
 		Vector3f boundry = world.hitBoundry(this);
 
 		if (boundry.lengthSquared() != 0) {
+			
+			boundry.scale(bounceDamping);
+			
+			Vector3f.add(velocity,boundry,velocity);
+			
+			Vector3f newScaledVelocity = new Vector3f(velocity);
 
-			if (boundry.x > 0) {
-				velocity.x = -velocity.x;
-			} else if (boundry.z > 0) {
-				velocity.z = -velocity.z;
-			} else if (boundry.y > 0) {
-				velocity.y = -velocity.y;
-			}
+			newScaledVelocity.scale((float) deltaT / 33);
 
-			velocity.scale(bounceDamping);
-			Vector3f.add(position, velocity, position);
+			position = Vector3f.add(oldPosition, newScaledVelocity, null);
+			
 			return;
 
 		}

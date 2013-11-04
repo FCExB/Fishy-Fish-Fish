@@ -50,6 +50,8 @@ public class World {
 
 	private final List<InWorldSpace> allObjects;
 
+	private final float greatestX, smallestX, greatestY, smallestY;
+
 	public World(GameplayState state) throws SlickException {
 
 		this.state = state;
@@ -85,6 +87,11 @@ public class World {
 		boatSideVecs.add(new Vector3f(100, 20, -100));
 		boatSideVecs.add(new Vector3f(80, -35, -100));
 		boatSideVecs.add(new Vector3f(-80, -35, -100));
+
+		greatestX = 100;
+		smallestX = -100;
+		greatestY = 20;
+		smallestY = -35;
 
 		boatSide = new ThreeDShape(boatSideVecs, new Color(0.5f, 0f, 0f, 1f));
 
@@ -186,11 +193,10 @@ public class World {
 		if (position.y < -300)
 			return false;
 
-		if (position.y > 0)
+		if (position.y > 20)
 			return false;
 
-		if (Math.abs(position.x) < 95 && position.y > -35 && position.z > -300
-				&& position.z < -100) {
+		if (Math.abs(position.x) < 150 && position.y > -70) {
 			return false;
 		}
 
@@ -198,24 +204,38 @@ public class World {
 	}
 
 	public Vector3f hitBoundry(Entity entity) {
+		if ((this.greatestX >= entity.smallestX() && this.greatestX <= entity
+				.greatestX())
+				|| (this.smallestX >= entity.smallestX() && this.smallestX <= entity
+						.greatestX())
+				|| (this.greatestX <= entity.greatestX() && this.smallestX >= entity
+						.smallestX())
+				|| (this.greatestX >= entity.greatestX() && this.smallestX <= entity
+						.smallestX())) {
+			// There is an X overlap
 
-		Vector3f position = entity.getPosition();
-
-		if (position.y > -40 && position.y < 20 && position.z < -100
-				&& position.z > -300) {
-			if ((entity.greatestX() > -100 && entity.smallestX() < -100)
-					|| (entity.greatestX() > 100 && entity.smallestX() < 100)) {
-				return new Vector3f(1, 0, 0);
+			if (this.greatestY > entity.smallestY()
+					&& this.greatestY <= entity.greatestY()
+					|| this.smallestY >= entity.smallestY()
+					&& this.smallestY <= entity.greatestY()
+					|| this.greatestY <= entity.greatestY()
+					&& this.smallestY >= entity.smallestY()
+					|| this.greatestY >= entity.greatestY()
+					&& this.smallestY <= entity.smallestY()) {
+				// There is a y overlap
+				
+				Vector3f result = entity.getPosition();
+				
+				if(result.y > 0) {
+					return new Vector3f(0,1,0);
+				}
+				
+				Vector3f.sub(result, new Vector3f(0, 0, 0), result);
+				result.z = 0;
+				result.normalise();
+				return result;
 			}
-		}
 
-		if (position.x > -105 && position.x < 105 && position.z < -100
-				&& position.z > -300) {
-
-			if ((entity.greatestY() > 20 && entity.smallestY() < 20)
-					|| (entity.greatestY() > -35 && entity.smallestY() < -35)) {
-				return new Vector3f(0, 1, 0);
-			}
 		}
 
 		if (entity.smallestZ() < -400) {
@@ -226,7 +246,6 @@ public class World {
 			return new Vector3f(0, 0, 1);
 
 		return new Vector3f();
-
 	}
 
 	public void resetPlayer() {
