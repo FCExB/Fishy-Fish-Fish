@@ -14,7 +14,7 @@ public class WaterSurface {
 	private static final float SHIMMER_CHANCE = 0.4f;
 	private static final float SHIMMER_RANGE = 0.6f;
 
-	private static final float INCREASE_SHIMMER_FACTOR = 1.2f;
+	private static final float INCREASE_SHIMMER_FACTOR = 1.18f;
 
 	private final Vector3f[][] points;
 	private final int numDeep;
@@ -181,7 +181,7 @@ public class WaterSurface {
 	public void crossWaterLevel(Vector3f crossPoint, float fishScale,
 			float verticalSpeed) {
 
-		verticalSpeed += 0.2 * Math.signum(verticalSpeed);
+		verticalSpeed += 0.3 * Math.signum(verticalSpeed);
 		verticalSpeed /= 10f;
 
 		float firstRingRange = 40 * fishScale * Math.abs(verticalSpeed);

@@ -8,7 +8,7 @@ import org.newdawn.slick.Color;
 public class WaterSurfaceTriangle extends ThreeDShape {
 
 	public WaterSurfaceTriangle(List<Vector3f> points) {
-		super(points, new Color(0f, 0f, 0f, 0.7f));
+		super(points, new Color(0f, 0f, 0f, 0.78f));
 	}
 
 	public void update() {
@@ -22,8 +22,8 @@ public class WaterSurfaceTriangle extends ThreeDShape {
 			height = Math.max(vec.y, height);
 		}
 
-		height += 0.5;
 		height /= 5;
+		height += 0.21;
 
 		color.b = height;
 	}

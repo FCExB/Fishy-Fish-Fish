@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.util.vector.Vector3f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import base.Camera;
@@ -33,6 +34,8 @@ public class BackgroundEffects {
 	}
 
 	public void render(Camera camera, Graphics g) {
+		g.setBackground(new Color(0.01f, 0.01f, 0.01f));
+
 		for (BackgroundBlob blob : blobs) {
 			blob.render(camera, g);
 		}

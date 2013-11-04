@@ -96,8 +96,10 @@ public class BackgroundBlob extends ThreeDShape {
 
 	private static float colorFadeSpeed = 0.001f;
 
-	private static final float maxA = 0.5f;
+	private static final float maxA = 0.9f;
+	private static final float minA = 0.4f;
 	private static final float colorMax = 0.6f;
+	private static final float colorMin = 0.2f;
 
 	private void updateColor(int delta, int score) {
 
@@ -106,19 +108,19 @@ public class BackgroundBlob extends ThreeDShape {
 		color.b += bFade * colorFadeSpeed * delta * ((float) score / 10);
 		color.a += aFade * colorFadeSpeed * delta * ((float) score / 13);
 
-		if (color.r > colorMax || color.r < 0.1) {
+		if (color.r > colorMax || color.r < colorMin) {
 			rFade = rand.nextFloat() * -Math.signum(rFade);
 		}
 
-		if (color.g > colorMax || color.g < 0.1) {
+		if (color.g > colorMax || color.g < colorMin) {
 			gFade = rand.nextFloat() * -Math.signum(gFade);
 		}
 
-		if (color.b > colorMax || color.b < 0.1) {
+		if (color.b > colorMax || color.b < colorMin) {
 			bFade = rand.nextFloat() * -Math.signum(bFade);
 		}
 
-		if (color.a > maxA || color.a < 0.3) {
+		if (color.a > maxA || color.a < minA) {
 			aFade = rand.nextFloat() * -Math.signum(aFade);
 		}
 	}

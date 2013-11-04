@@ -33,8 +33,8 @@ public class World {
 
 	private final int waterWidth = 1200;
 	private final int waterDepth = 400;
-	private final int waterNumPointsWide = 32;
-	private final int waterNumPointsDeep = 10;
+	private final int waterNumPointsWide = 34;
+	private final int waterNumPointsDeep = 11;
 
 	private final WaterSurface waterTop;
 	private final ThreeDShape waterSide;
@@ -70,7 +70,7 @@ public class World {
 		waterSideVecs.add(new Vector3f(600, -400, 0));
 		waterSideVecs.add(new Vector3f(-600, -400, 0));
 
-		waterSide = new ThreeDShape(waterSideVecs, new Color(0, 0, 50, 100));
+		waterSide = new ThreeDShape(waterSideVecs, new Color(0, 0, 0.2f, 0.43f));
 
 		List<Vector3f> boatTopVecs = new ArrayList<Vector3f>();
 
@@ -226,7 +226,7 @@ public class World {
 				Vector3f result = entity.getPosition();
 
 				if (result.y > 0) {
-					return new Vector3f(0, 0.8f, 0);
+					return new Vector3f(0, 1, 0);
 				}
 
 				Vector3f.sub(result, new Vector3f(0, 0, 0), result);
