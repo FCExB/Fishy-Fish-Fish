@@ -9,7 +9,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 
 import base.Camera;
-import entities.Entity;
 
 public class ThreeDShape implements InWorldSpace {
 	protected List<Vector3f> points;
