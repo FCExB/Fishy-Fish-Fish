@@ -77,7 +77,7 @@ public class GameplayState extends BasicGameState {
 
 		score++;
 
-		timeRan -= 10 * 1000;
+		timeRan -= 5 * 1000;
 
 		if (score % 2 == 1) {
 			world.addAIFish();
@@ -102,9 +102,9 @@ public class GameplayState extends BasicGameState {
 
 		int timeLeft = timeLimit - timeRan;
 		int seconds = Math.max(timeLeft / 1000, 0);
-		int milliseconds = Math.max(timeLeft % 1000, 0);
+		// int milliseconds = Math.max(timeLeft % 1000, 0);
 
-		g.drawString("Time left: " + seconds + "." + milliseconds, 400, 30);
+		g.drawString("Time left: " + seconds, 400, 30);
 	}
 
 	@Override
