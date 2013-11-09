@@ -30,6 +30,7 @@ public class FishGame extends StateBasedGame {
 		AppGameContainer container = new AppGameContainer(game);
 
 		container.setDisplayMode(1000, 600, false);
+		container.setShowFPS(false);
 
 		container.start();
 
