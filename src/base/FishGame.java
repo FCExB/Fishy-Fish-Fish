@@ -14,7 +14,7 @@ public class FishGame extends StateBasedGame {
 	public static boolean USING_CONTROLLER;
 
 	public FishGame() {
-		super("Fish Shit");
+		super("Here! Fishy-Fish-Fish!");
 	}
 
 	@Override
